@@ -1,0 +1,3 @@
+@piscologos = http://localhost:3000/psicologos 
+
+GET {{piscologos}}
