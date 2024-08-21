@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/psicologos', GetPsicologos);
 
-router.get('/psicologos/:id', GetPsicologo);
+router.get('/psicologos/:id_psicologo', GetPsicologo);
 router.post('/psicologos', CreatePsicologo);
 router.delete('/psicologos/:id', DeletePsicologo);
 router.put('/psicologos/:id', PutPsicologo);
