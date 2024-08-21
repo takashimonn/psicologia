@@ -3,6 +3,8 @@ import PsicologosRouter from './routes/psicologos.router';
 
 const app = express();
 
-app.use (PsicologosRouter);
+app.use(express.json());
+
+app.use(PsicologosRouter);
 
 export default app; 

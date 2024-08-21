@@ -1,3 +1,14 @@
 @piscologos = http://localhost:3000/psicologos 
 
 GET {{piscologos}}
+
+###
+GET {{piscologos}}/2
+
+###
+POST {{piscologos}}
+
+Content-Type: application/json
+{
+    "nombre": "prueba 1"
+}
