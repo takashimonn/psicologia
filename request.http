@@ -10,5 +10,12 @@ POST {{piscologos}}
 
 Content-Type: application/json
 {
-    "nombre": "prueba 1"
+    "nombre": "María",
+    "apellido": "González",
+    "especialidad": "Psicología Clínica",
+    "correo_electronico": "maria.gonzalez@example.com",
+    "telefono": "555-1234",
+    "usuario": "mariag",
+    "contrasena": "segura123"
 }
+

@@ -1,5 +1,6 @@
 import express from 'express'; 
 import PsicologosRouter from './routes/psicologos.router';
+import bodyParser from 'body-parser';
 
 const app = express();
 
