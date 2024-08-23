@@ -3,19 +3,31 @@
 GET {{piscologos}}
 
 ###
-GET {{piscologos}}/2
+GET {{piscologos}}/25
 
 ###
 POST {{piscologos}}
-
 Content-Type: application/json
+
 {
-    "nombre": "María",
+    "nombre": "otro juan",
     "apellido": "González",
     "especialidad": "Psicología Clínica",
     "correo_electronico": "maria.gonzalez@example.com",
     "telefono": "555-1234",
     "usuario": "mariag",
     "contrasena": "segura123"
+}
+
+###
+DELETE {{piscologos}}/24
+
+###
+PUT {{piscologos}}/25
+Content-Type: application/json
+
+{
+    "nombre": "junior ",
+    "apellido": "h"
 }
 
