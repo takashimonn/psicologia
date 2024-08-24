@@ -1,3 +1,7 @@
 @piscologos = http://localhost:3000/psicologos 
+@pacientes = http://localhost:3000/pacientes
 
 GET {{piscologos}}
+
+###
+GET {{pacientes}}
