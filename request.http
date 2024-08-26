@@ -1,4 +1,5 @@
 @piscologos = http://localhost:3000/psicologos 
+@citas = http://localhost:3000/citas
 
 GET {{piscologos}}
 
@@ -30,4 +31,11 @@ Content-Type: application/json
     "nombre": "junior ",
     "apellido": "h"
 }
+
+###
+GET {{citas}}
+
+###
+GET {{citas}}/1
+
 
