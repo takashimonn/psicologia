@@ -89,3 +89,11 @@ Content-Type: application/json
 
 ###
 DELETE {{pacientes}}/9
+
+###
+PUT {{pacientes}}/1
+Content-Type: application/json
+
+{
+  "nombre": "maximiliano"
+}
