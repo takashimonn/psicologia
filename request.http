@@ -1,7 +1,32 @@
 @piscologos = http://localhost:3000/psicologos 
 @pacientes = http://localhost:3000/pacientes
 
-GET {{piscologos}}
+//GET {{piscologos}}
 
 ###
 GET {{pacientes}}
+
+###
+POST {{pacientes}}
+Content-Type: application/json
+
+{
+  "nombre": "Juana",
+  "apellido": "Pereza",
+  "fecha_nacimiento": "1990-02-01",
+  "correo_electronico": "juanapereza@example.com",
+  "telefono": "123456",
+  "direccion": "Calle 12s3",
+  "id_psicologo": 2,
+  "usuario": "juanapereza",
+  "contrasena": "1234562",
+  "tarifa": 100,
+  "nombre_emergencia": "Mariana",
+  "contacto_emergencia": "815654321",
+  "estado_civil": "Soltero",
+  "ocupacion": "Estudiante",
+  "fecha_registro": "2021-04-01"
+}
+
+###
+DELETE {{pacientes}}/9
