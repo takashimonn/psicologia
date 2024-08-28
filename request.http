@@ -38,4 +38,29 @@ GET {{citas}}
 ###
 GET {{citas}}/1
 
+###
+POST {{citas}}
+Content-Type: application/json
+
+{
+    "id_psicologo": 1,
+    "id_paciente": 2,
+    "fecha_cita": "2024-08-30",
+    "hora_cita": "15:00:00",
+    "tipo_cita": "Consulta",
+    "estado": "Confirmada"
+}
+
+###
+DELETE {{citas}}/12
+
+###
+PUT {{citas}}/14
+Content-Type: application/json
+
+{
+    "tipo_cita": "cita actualizada"
+}
+
+
 
