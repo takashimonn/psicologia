@@ -57,6 +57,14 @@ export const deletePaciente = async (req, res) => {
 //Actualizar paciente
 export const putPaciente = async (req, res) => {
   const connection = await connect();
-  const [rows] = await connection.query("");
-  res.json(rows);
-};
+  await connection.query("UPDATE pacientes SET ? WHERE id_paciente = ?", 
+    [
+      req.body,
+      req.params.id_paciente
+    ]);
+  const [rows] = await connection.query(
+    "SELECT * FROM pacientes WHERE id_paciente = ?",
+    [req.params.id_paciente]
+);
+    res.json(rows[0]);
+  }
