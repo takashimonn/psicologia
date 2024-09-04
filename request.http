@@ -1,7 +1,8 @@
 @piscologos = http://localhost:3000/psicologos 
 @citas = http://localhost:3000/citas
-
 @pacientes = http://localhost:3000/pacientes
+@diagnosticos = http://localhost:3000/diagnosticos
+
 
 
 ###
@@ -97,3 +98,6 @@ Content-Type: application/json
 {
   "nombre": "maximiliano"
 }
+
+###
+GET {{diagnosticos}}
