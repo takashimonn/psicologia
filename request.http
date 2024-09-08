@@ -101,3 +101,28 @@ Content-Type: application/json
 
 ###
 GET {{diagnosticos}}
+
+###
+GET {{diagnosticos}}/1
+
+###
+POST {{diagnosticos}}
+Content-Type: application/json
+
+{
+  "id_paciente": 1,
+  "id_psicologo": 1,
+  "fecha_diagnostico": "2024-09-08",
+  "diagnostico": "Depresion por desamor(8"
+}
+
+###
+DELETE {{diagnosticos}}/6
+
+###
+PUT {{diagnosticos}}/7
+Content-Type: application/json
+
+{
+  "diagnostico": "ahora tiene depresion postparto"
+}
