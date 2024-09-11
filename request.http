@@ -52,18 +52,18 @@ Content-Type: application/json
     "fecha_cita": "2024-08-30",
     "hora_cita": "15:00:00",
     "tipo_cita": "Consulta",
-    "estado": "Confirmada"
+    "estado": "Cancelada"
 }
 
 ###
-DELETE {{citas}}/12
+DELETE {{citas}}/15
 
 ###
 PUT {{citas}}/14
 Content-Type: application/json
 
 {
-    "tipo_cita": "cita actualizada"
+    "tipo_cita": "pre alta"
 }
 
 ###
@@ -77,32 +77,32 @@ POST {{pacientes}}
 Content-Type: application/json
 
 {
-  "nombre": "Juana",
-  "apellido": "Pereza",
+  "nombre": "Luna",
+  "apellido": "Martinez",
   "fecha_nacimiento": "1990-02-01",
-  "correo_electronico": "juanapereza@example.com",
-  "telefono": "123456",
-  "direccion": "Calle 12s3",
-  "id_psicologo": 2,
-  "usuario": "juanapereza",
-  "contrasena": "1234562",
+  "correo_electronico": "lunamartinez@example.com",
+  "telefono": "123456133",
+  "direccion": "Calle 12s35",
+  "id_psicologo": 8,
+  "usuario": "lunalatuna",
+  "contrasena": "1234567",
   "tarifa": 100,
-  "nombre_emergencia": "Mariana",
-  "contacto_emergencia": "815654321",
-  "estado_civil": "Soltero",
+  "nombre_emergencia": "Luis Daniel",
+  "contacto_emergencia": "8156558321",
+  "estado_civil": "Casada",
   "ocupacion": "Estudiante",
-  "fecha_registro": "2021-04-01"
+  "fecha_registro": "2024-04-01"
 }
 
 ###
-DELETE {{pacientes}}/9
+DELETE {{pacientes}}/8
 
 ###
 PUT {{pacientes}}/1
 Content-Type: application/json
 
 {
-  "nombre": "maximiliano"
+  "nombre": "Maximiliano"
 }
 
 ###
@@ -116,53 +116,53 @@ POST {{diagnosticos}}
 Content-Type: application/json
 
 {
-  "id_paciente": 1,
-  "id_psicologo": 1,
+  "id_paciente": 5,
+  "id_psicologo": 25,
   "fecha_diagnostico": "2024-09-08",
-  "diagnostico": "Depresion por desamor(8"
+  "diagnostico": "Depresion por desamor8("
 }
 
 ###
-DELETE {{diagnosticos}}/6
+DELETE {{diagnosticos}}/7
 
 ###
-PUT {{diagnosticos}}/7
+PUT {{diagnosticos}}/8
 Content-Type: application/json
 
 {
-  "diagnostico": "ahora tiene depresion preparto"
+  "diagnostico": "Ansiedad por examenes"
 }
 
 ###
 GET {{notas}}
 
 ###
-GET {{notas}}/1
+GET {{notas}}/6
 
 ###
 POST {{notas}}
 Content-Type: application/json
 
 {
-  "propuesta_terap": "El paciente se encuentra estable"
+  "propuesta_terap": "Para la siguiente sesion se propone: enseñanza de ejercicios de respiración"
 }
 
+//###
+//POST {{notas}}
+//Content-Type: application/json
+
+//{
+  //"propuesta_terap": "Para la siguiente sesion se propone: tratar tema de la muerte de la infancia"
+//}
+
 ###
-POST {{notas}}
+DELETE {{notas}}/5
+
+###
+PUT {{notas}}/6
 Content-Type: application/json
 
 {
-  "propuesta_terap": "Para la siguiente sesion se propone: tratar tema de la muerte de la infancia"
-}
-
-###
-DELETE {{notas}}/1
-
-###
-PUT {{notas}}/5
-Content-Type: application/json
-
-{
-  "propuesta_terap": "prueba de actualizacion2"
+  "propuesta_terap": "prueba de actualizacion3"
 }
 
