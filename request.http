@@ -133,7 +133,6 @@ Content-Type: application/json
   "diagnostico": "ahora tiene depresion preparto"
 }
 
-
 ###
 GET {{notas}}
 
@@ -156,9 +155,8 @@ Content-Type: application/json
   "propuesta_terap": "Para la siguiente sesion se propone: tratar tema de la muerte de la infancia"
 }
 
-
 ###
-DELETE {{notas}}/5
+DELETE {{notas}}/1
 
 ###
 PUT {{notas}}/5

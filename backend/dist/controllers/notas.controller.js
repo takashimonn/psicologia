@@ -85,7 +85,7 @@ var CreateNota = exports.CreateNota = /*#__PURE__*/function () {
         case 2:
           connection = _context3.sent;
           _context3.next = 5;
-          return connection.query("INSERT INTO notas(propuesta_terap) VALUES (?)", [req.body.propuesta_terap]);
+          return connection.query("INSERT INTO notas (propuesta_terap) VALUES (?)", [req.body.propuesta_terap]);
         case 5:
           _yield$connection$que5 = _context3.sent;
           _yield$connection$que6 = _slicedToArray(_yield$connection$que5, 1);

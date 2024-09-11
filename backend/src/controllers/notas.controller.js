@@ -16,7 +16,7 @@ export const GetNota = async (req, res) => {
 
 export const CreateNota = async (req, res) => {
   const connection = await connect();
-  const [results] = await connection.query("INSERT INTO notas(propuesta_terap) VALUES (?)", [
+  const [results] = await connection.query("INSERT INTO notas (propuesta_terap) VALUES (?)", [
     req.body.propuesta_terap
   ]);
   res.json({
