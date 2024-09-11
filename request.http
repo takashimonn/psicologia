@@ -2,8 +2,10 @@
 @citas = http://localhost:3000/citas
 @pacientes = http://localhost:3000/pacientes
 @diagnosticos = http://localhost:3000/diagnosticos
+@notas = http://localhost:3000/notas
 
-
+###
+GET {{piscologos}}
 
 ###
 GET {{piscologos}}/25
@@ -64,7 +66,11 @@ Content-Type: application/json
     "tipo_cita": "cita actualizada"
 }
 
+###
 GET {{pacientes}}
+
+###
+GET {{pacientes}}/1
 
 ###
 POST {{pacientes}}
@@ -124,5 +130,41 @@ PUT {{diagnosticos}}/7
 Content-Type: application/json
 
 {
-  "diagnostico": "ahora tiene depresion postparto"
+  "diagnostico": "ahora tiene depresion preparto"
 }
+
+
+###
+GET {{notas}}
+
+###
+GET {{notas}}/1
+
+###
+POST {{notas}}
+Content-Type: application/json
+
+{
+  "propuesta_terap": "El paciente se encuentra estable"
+}
+
+###
+POST {{notas}}
+Content-Type: application/json
+
+{
+  "propuesta_terap": "Para la siguiente sesion se propone: tratar tema de la muerte de la infancia"
+}
+
+
+###
+DELETE {{notas}}/5
+
+###
+PUT {{notas}}/5
+Content-Type: application/json
+
+{
+  "propuesta_terap": "prueba de actualizacion2"
+}
+
