@@ -4,7 +4,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.PutDiagnostico = exports.GetDiagnosticos = exports.GetDiagnostico = exports.DeleteDiagnostico = exports.CreateDiagnostico = void 0;
+exports.PutNota = exports.GetNotas = exports.GetNota = exports.DeleteNota = exports.CreateNota = void 0;
 var _database = require("../database");
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -20,7 +20,7 @@ function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" !=
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-var GetDiagnosticos = exports.GetDiagnosticos = /*#__PURE__*/function () {
+var GetNotas = exports.GetNotas = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
     var connection, _yield$connection$que, _yield$connection$que2, rows;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -31,7 +31,7 @@ var GetDiagnosticos = exports.GetDiagnosticos = /*#__PURE__*/function () {
         case 2:
           connection = _context.sent;
           _context.next = 5;
-          return connection.query('SELECT * FROM diagnosticos');
+          return connection.query("SELECT * FROM notas");
         case 5:
           _yield$connection$que = _context.sent;
           _yield$connection$que2 = _slicedToArray(_yield$connection$que, 1);
@@ -43,11 +43,11 @@ var GetDiagnosticos = exports.GetDiagnosticos = /*#__PURE__*/function () {
       }
     }, _callee);
   }));
-  return function GetDiagnosticos(_x, _x2) {
+  return function GetNotas(_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }();
-var GetDiagnostico = exports.GetDiagnostico = /*#__PURE__*/function () {
+var GetNota = exports.GetNota = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
     var connection, _yield$connection$que3, _yield$connection$que4, rows;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -58,7 +58,7 @@ var GetDiagnostico = exports.GetDiagnostico = /*#__PURE__*/function () {
         case 2:
           connection = _context2.sent;
           _context2.next = 5;
-          return connection.query("SELECT * FROM diagnosticos WHERE id_diagnostico = ?", [req.params.id_diagnostico]);
+          return connection.query("SELECT * FROM notas WHERE id_nota = ?", [req.params.id_nota]);
         case 5:
           _yield$connection$que3 = _context2.sent;
           _yield$connection$que4 = _slicedToArray(_yield$connection$que3, 1);
@@ -70,11 +70,11 @@ var GetDiagnostico = exports.GetDiagnostico = /*#__PURE__*/function () {
       }
     }, _callee2);
   }));
-  return function GetDiagnostico(_x3, _x4) {
+  return function GetNota(_x3, _x4) {
     return _ref2.apply(this, arguments);
   };
 }();
-var CreateDiagnostico = exports.CreateDiagnostico = /*#__PURE__*/function () {
+var CreateNota = exports.CreateNota = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
     var connection, _yield$connection$que5, _yield$connection$que6, results;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
@@ -85,7 +85,7 @@ var CreateDiagnostico = exports.CreateDiagnostico = /*#__PURE__*/function () {
         case 2:
           connection = _context3.sent;
           _context3.next = 5;
-          return connection.query("INSERT INTO diagnosticos(id_paciente, id_psicologo, fecha_diagnostico, diagnostico) VALUES (?,?,?,?)", [req.body.id_paciente, req.body.id_psicologo, req.body.fecha_diagnostico, req.body.diagnostico]);
+          return connection.query("INSERT INTO notas(propuesta_terap) VALUES (?)", [req.body.propuesta_terap]);
         case 5:
           _yield$connection$que5 = _context3.sent;
           _yield$connection$que6 = _slicedToArray(_yield$connection$que5, 1);
@@ -99,11 +99,11 @@ var CreateDiagnostico = exports.CreateDiagnostico = /*#__PURE__*/function () {
       }
     }, _callee3);
   }));
-  return function CreateDiagnostico(_x5, _x6) {
+  return function CreateNota(_x5, _x6) {
     return _ref3.apply(this, arguments);
   };
 }();
-var DeleteDiagnostico = exports.DeleteDiagnostico = /*#__PURE__*/function () {
+var DeleteNota = exports.DeleteNota = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
     var connection;
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
@@ -114,7 +114,7 @@ var DeleteDiagnostico = exports.DeleteDiagnostico = /*#__PURE__*/function () {
         case 2:
           connection = _context4.sent;
           _context4.next = 5;
-          return connection.query("DELETE FROM diagnosticos WHERE id_diagnostico = ?", [req.params.id_diagnostico]);
+          return connection.query("DELETE FROM notas WHERE id_nota = ?", [req.params.id_nota]);
         case 5:
           res.sendStatus(204);
         case 6:
@@ -123,11 +123,11 @@ var DeleteDiagnostico = exports.DeleteDiagnostico = /*#__PURE__*/function () {
       }
     }, _callee4);
   }));
-  return function DeleteDiagnostico(_x7, _x8) {
+  return function DeleteNota(_x7, _x8) {
     return _ref4.apply(this, arguments);
   };
 }();
-var PutDiagnostico = exports.PutDiagnostico = /*#__PURE__*/function () {
+var PutNota = exports.PutNota = /*#__PURE__*/function () {
   var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
     var connection, _yield$connection$que7, _yield$connection$que8, rows;
     return _regeneratorRuntime().wrap(function _callee5$(_context5) {
@@ -138,10 +138,10 @@ var PutDiagnostico = exports.PutDiagnostico = /*#__PURE__*/function () {
         case 2:
           connection = _context5.sent;
           _context5.next = 5;
-          return connection.query("UPDATE diagnosticos SET ? WHERE id_diagnostico = ?", [req.body, req.params.id_diagnostico]);
+          return connection.query("UPDATE notas SET ? WHERE id_nota = ?", [req.body, req.params.id_nota]);
         case 5:
           _context5.next = 7;
-          return connection.query("SELECT * FROM diagnosticos WHERE id_diagnostico = ?", [req.params.id_diagnostico]);
+          return connection.query("SELECT * FROM notas WHERE id_nota = ?", [req.params.id_nota]);
         case 7:
           _yield$connection$que7 = _context5.sent;
           _yield$connection$que8 = _slicedToArray(_yield$connection$que7, 1);
@@ -153,7 +153,7 @@ var PutDiagnostico = exports.PutDiagnostico = /*#__PURE__*/function () {
       }
     }, _callee5);
   }));
-  return function PutDiagnostico(_x9, _x10) {
+  return function PutNota(_x9, _x10) {
     return _ref5.apply(this, arguments);
   };
 }();
