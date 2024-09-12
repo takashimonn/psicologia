@@ -137,7 +137,7 @@ Content-Type: application/json
 GET {{notas}}
 
 ###
-GET {{notas}}/6
+GET {{notas}}/2
 
 ###
 POST {{notas}}
@@ -147,19 +147,11 @@ Content-Type: application/json
   "propuesta_terap": "Para la siguiente sesion se propone: enseñanza de ejercicios de respiración"
 }
 
-//###
-//POST {{notas}}
-//Content-Type: application/json
-
-//{
-  //"propuesta_terap": "Para la siguiente sesion se propone: tratar tema de la muerte de la infancia"
-//}
-
 ###
 DELETE {{notas}}/5
 
 ###
-PUT {{notas}}/6
+PUT {{notas}}/1
 Content-Type: application/json
 
 {

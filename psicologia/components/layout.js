@@ -1,0 +1,1 @@
+// Este archivo ayudara a reciclar componente visuajles ej. agregar un fondo general a toda la app 
