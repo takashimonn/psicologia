@@ -1,1 +1,7 @@
-// Este archivo conecta el backend con el frontend
+const API = 'http://192.168.1.16:3000/citas'
+
+export const getCitas = async () => {
+    const res = await fetch(API)
+    return await res.json()
+
+}

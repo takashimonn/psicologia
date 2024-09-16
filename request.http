@@ -59,11 +59,11 @@ Content-Type: application/json
 DELETE {{citas}}/15
 
 ###
-PUT {{citas}}/14
+PUT {{citas}}/7
 Content-Type: application/json
 
 {
-    "tipo_cita": "pre alta"
+    "tipo_cita": "cita de prueba front"
 }
 
 ###
