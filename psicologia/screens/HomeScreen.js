@@ -6,7 +6,7 @@ import React from 'react'
 const HomeScreen = () => {
   return (
     <View>
-      <Text>HomeScreen</Text>
+      <Text>Este es el home screen y aqui van las imagenes, se me ocurre que podemos poner con un carrusel con esas imagenes, despues te digo que otras imagenes tengo en mente</Text>
     </View>
   )
 }

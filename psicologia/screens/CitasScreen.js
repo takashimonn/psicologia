@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View } from 'react-native'
 import {getCitas} from '../api'
+import CitasList from '../components/citasList'
 
 const CitasScreen = () => { 
 
@@ -17,11 +18,7 @@ const loadCitas = async () => {
 
   return (
     <View>
-      <FlatList 
-        data={citas}         
-        renderItem = {({ item }) => {
-            return <Text>{item.tipo_cita}</Text>; }}>
-      </FlatList>
+        <CitasList citas={citas} />
     </View>
   )
 }
