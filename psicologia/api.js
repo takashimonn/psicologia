@@ -5,3 +5,12 @@ export const getCitas = async () => {
     return await res.json()
 
 }
+
+export const saveCita  = async (newCita) => {
+    const res = await fetch (API, {
+        method: "POST",
+        headers: {Accept: "aplication/json", "Content-Type": "application/json"},
+        body: JSON.stringify(newCita)
+    }); 
+    return await res.json();
+}
