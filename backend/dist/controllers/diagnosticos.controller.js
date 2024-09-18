@@ -4,7 +4,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.PutDiagnostico = exports.GetDiagnosticos = exports.GetDiagnostico = exports.DeleteDiagnostico = exports.CreateDiagnostico = void 0;
+exports.PutDiagnostico = exports.GetDiagnosticosByPaciente = exports.GetDiagnosticos = exports.GetDiagnostico = exports.DeleteDiagnostico = exports.CreateDiagnostico = void 0;
 var _database = require("../database");
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -155,5 +155,34 @@ var PutDiagnostico = exports.PutDiagnostico = /*#__PURE__*/function () {
   }));
   return function PutDiagnostico(_x9, _x10) {
     return _ref5.apply(this, arguments);
+  };
+}();
+
+// Ajusta la función para obtener el diagnóstico del paciente específico
+var GetDiagnosticosByPaciente = exports.GetDiagnosticosByPaciente = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res) {
+    var connection, _yield$connection$que9, _yield$connection$que10, rows;
+    return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      while (1) switch (_context6.prev = _context6.next) {
+        case 0:
+          _context6.next = 2;
+          return (0, _database.connect)();
+        case 2:
+          connection = _context6.sent;
+          _context6.next = 5;
+          return connection.query("SELECT * FROM diagnosticos WHERE id_paciente = ?", [req.params.id_paciente]);
+        case 5:
+          _yield$connection$que9 = _context6.sent;
+          _yield$connection$que10 = _slicedToArray(_yield$connection$que9, 1);
+          rows = _yield$connection$que10[0];
+          res.json(rows);
+        case 9:
+        case "end":
+          return _context6.stop();
+      }
+    }, _callee6);
+  }));
+  return function GetDiagnosticosByPaciente(_x11, _x12) {
+    return _ref6.apply(this, arguments);
   };
 }();

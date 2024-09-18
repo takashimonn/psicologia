@@ -12,4 +12,5 @@ router.get('/diagnosticos/:id_diagnostico', _diagnosticos.GetDiagnostico);
 router.post('/diagnosticos', _diagnosticos.CreateDiagnostico);
 router["delete"]('/diagnosticos/:id_diagnostico', _diagnosticos.DeleteDiagnostico);
 router.put('/diagnosticos/:id_diagnostico', _diagnosticos.PutDiagnostico);
+router.get('/diagnosticos/:id_paciente', _diagnosticos.GetDiagnosticosByPaciente);
 var _default = exports["default"] = router;

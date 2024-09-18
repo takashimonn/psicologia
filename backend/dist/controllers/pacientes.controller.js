@@ -23,22 +23,37 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 //Muestra todos los campos dentro de pacientes
 var getPacientes = exports.getPacientes = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var connection, _yield$connection$que, _yield$connection$que2, rows;
+    var id_psicologo, connection, _yield$connection$que, _yield$connection$que2, rows, _yield$connection$que3, _yield$connection$que4, _rows;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _context.next = 2;
+          id_psicologo = req.query.id_psicologo; // Obtén el id_psicologo desde los parámetros de consulta
+          _context.next = 3;
           return (0, _database.connect)();
-        case 2:
+        case 3:
           connection = _context.sent;
-          _context.next = 5;
-          return connection.query("SELECT * FROM pacientes");
-        case 5:
+          if (!id_psicologo) {
+            _context.next = 13;
+            break;
+          }
+          _context.next = 7;
+          return connection.query("SELECT * FROM pacientes WHERE id_psicologo = ?", [id_psicologo]);
+        case 7:
           _yield$connection$que = _context.sent;
           _yield$connection$que2 = _slicedToArray(_yield$connection$que, 1);
           rows = _yield$connection$que2[0];
           res.json(rows);
-        case 9:
+          _context.next = 19;
+          break;
+        case 13:
+          _context.next = 15;
+          return connection.query("SELECT * FROM pacientes");
+        case 15:
+          _yield$connection$que3 = _context.sent;
+          _yield$connection$que4 = _slicedToArray(_yield$connection$que3, 1);
+          _rows = _yield$connection$que4[0];
+          res.json(_rows);
+        case 19:
         case "end":
           return _context.stop();
       }
@@ -52,7 +67,7 @@ var getPacientes = exports.getPacientes = /*#__PURE__*/function () {
 //Filtra pacientes por id
 var getPaciente = exports.getPaciente = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var connection, _yield$connection$que3, _yield$connection$que4, rows;
+    var connection, _yield$connection$que5, _yield$connection$que6, rows;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
@@ -63,9 +78,9 @@ var getPaciente = exports.getPaciente = /*#__PURE__*/function () {
           _context2.next = 5;
           return connection.query("SELECT * FROM pacientes WHERE id_paciente = ?", [req.params.id_paciente]);
         case 5:
-          _yield$connection$que3 = _context2.sent;
-          _yield$connection$que4 = _slicedToArray(_yield$connection$que3, 1);
-          rows = _yield$connection$que4[0];
+          _yield$connection$que5 = _context2.sent;
+          _yield$connection$que6 = _slicedToArray(_yield$connection$que5, 1);
+          rows = _yield$connection$que6[0];
           res.json(rows[0]);
         case 9:
         case "end":
@@ -81,7 +96,7 @@ var getPaciente = exports.getPaciente = /*#__PURE__*/function () {
 //Creacion de paciente
 var createPaciente = exports.createPaciente = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
-    var connection, _yield$connection$que5, _yield$connection$que6, result;
+    var connection, _yield$connection$que7, _yield$connection$que8, result;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
@@ -92,9 +107,9 @@ var createPaciente = exports.createPaciente = /*#__PURE__*/function () {
           _context3.next = 5;
           return connection.query("INSERT INTO pacientes (nombre, apellido, fecha_nacimiento, correo_electronico, telefono, direccion, id_psicologo, usuario, contrasena, tarifa, nombre_emergencia, contacto_emergencia , estado_civil, ocupacion, fecha_registro) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.body.nombre, req.body.apellido, req.body.fecha_nacimiento, req.body.correo_electronico, req.body.telefono, req.body.direccion, req.body.id_psicologo, req.body.usuario, req.body.contrasena, req.body.tarifa, req.body.nombre_emergencia, req.body.contacto_emergencia, req.body.estado_civil, req.body.ocupacion, req.body.fecha_registro]);
         case 5:
-          _yield$connection$que5 = _context3.sent;
-          _yield$connection$que6 = _slicedToArray(_yield$connection$que5, 1);
-          result = _yield$connection$que6[0];
+          _yield$connection$que7 = _context3.sent;
+          _yield$connection$que8 = _slicedToArray(_yield$connection$que7, 1);
+          result = _yield$connection$que8[0];
           res.json(_objectSpread({
             id: result.insertId
           }, req.body));
@@ -138,7 +153,7 @@ var deletePaciente = exports.deletePaciente = /*#__PURE__*/function () {
 //Actualizar paciente
 var putPaciente = exports.putPaciente = /*#__PURE__*/function () {
   var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
-    var connection, _yield$connection$que7, _yield$connection$que8, rows;
+    var connection, _yield$connection$que9, _yield$connection$que10, rows;
     return _regeneratorRuntime().wrap(function _callee5$(_context5) {
       while (1) switch (_context5.prev = _context5.next) {
         case 0:
@@ -152,9 +167,9 @@ var putPaciente = exports.putPaciente = /*#__PURE__*/function () {
           _context5.next = 7;
           return connection.query("SELECT * FROM pacientes WHERE id_paciente = ?", [req.params.id_paciente]);
         case 7:
-          _yield$connection$que7 = _context5.sent;
-          _yield$connection$que8 = _slicedToArray(_yield$connection$que7, 1);
-          rows = _yield$connection$que8[0];
+          _yield$connection$que9 = _context5.sent;
+          _yield$connection$que10 = _slicedToArray(_yield$connection$que9, 1);
+          rows = _yield$connection$que10[0];
           res.json(rows[0]);
         case 11:
         case "end":

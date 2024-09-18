@@ -8,7 +8,7 @@
 GET {{piscologos}}
 
 ###
-GET {{piscologos}}/25
+GET {{piscologos}}/27
 
 ###
 POST {{piscologos}}
@@ -28,12 +28,11 @@ Content-Type: application/json
 DELETE {{piscologos}}/24
 
 ###
-PUT {{piscologos}}/25
+PUT {{piscologos}}/27
 Content-Type: application/json
 
 {
-    "nombre": "junior ",
-    "apellido": "h"
+    "rol": "psicologo"
 }
 
 ###
