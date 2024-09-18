@@ -10,4 +10,5 @@ router.post('/psicologos', CreatePsicologo);
 router.delete('/psicologos/:id_psicologo', DeletePsicologo);
 router.put('/psicologos/:id_psicologo', PutPsicologo);
 
+
 export default router

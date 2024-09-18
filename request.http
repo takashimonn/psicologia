@@ -15,13 +15,13 @@ POST {{piscologos}}
 Content-Type: application/json
 
 {
-    "nombre": "otro juan",
-    "apellido": "González",
-    "especialidad": "Psicología Clínica",
-    "correo_electronico": "maria.gonzalez@example.com",
-    "telefono": "555-1234",
-    "usuario": "mariag",
-    "contrasena": "segura123"
+    "nombre": "Adrina",
+    "apellido": "Arreola",
+    "especialidad": "Logoterapia",
+    "correo_electronico": "Aun no lo sabemos jaja",
+    "telefono": "6181744287",
+    "usuario": "adri",
+    "contrasena": "12345"
 }
 
 ###
@@ -156,5 +156,14 @@ Content-Type: application/json
 
 {
   "propuesta_terap": "prueba de actualizacion3"
+}
+
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "usuario": "adri",
+  "contrasena": "12345"
 }
 

@@ -14,6 +14,10 @@ app.use(cors());
 app.use(morgan());
 app.use(express.json());
 
+
+import loginRouter from './routes/login.router'; 
+app.use(loginRouter);
+
 app.use(PsicologosRouter);
 app.use(CitasRouter);
 app.use(pacientesRouter);
