@@ -1,4 +1,4 @@
-const API = 'http://192.168.1.16:3000/citas'
+const API = 'http://172.20.102.159:3000/citas'
 
 export const getCitas = async () => {
     const res = await fetch(API)
