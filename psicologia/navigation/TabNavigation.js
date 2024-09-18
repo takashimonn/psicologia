@@ -6,6 +6,7 @@ import HomeScreen from "../screens/HomeScreen";
 import CitasScreen from "../screens/CitasScreen";
 import DiagnosticosScreen from "../screens/DiagnosticosScreen";
 import FormCitasScreen from "../screens/FormCitasScreen";
+import CitasDiaScreen from "../screens/CitasDiaScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -33,6 +34,7 @@ function TabNavigator() {
     return (
         <Tab.Navigator>
             <Tab.Screen name="Home" component={HomeScreen} />
+            <Tab.Screen name="CitasDia" component={CitasDiaScreen} />
             <Tab.Screen name="Citas" component={CitasStack} options={{ headerShown: false }} />
             <Tab.Screen name="Diagnosticos" component={DiagnosticosScreen} />
         </Tab.Navigator>
