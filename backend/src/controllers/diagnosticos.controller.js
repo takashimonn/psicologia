@@ -48,3 +48,12 @@ export const PutDiagnostico = async(req, res) => {
     );
     res.json(rows[0]);
 }
+
+// Ajusta la función para obtener el diagnóstico del paciente específico
+export const GetDiagnosticosByPaciente = async(req, res) => {
+    const connection = await connect();
+    const [rows] = await connection.query("SELECT * FROM diagnosticos WHERE id_paciente = ?", [
+        req.params.id_paciente,
+    ]);
+    res.json(rows);
+}

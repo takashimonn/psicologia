@@ -2,9 +2,22 @@ import { connect } from "../database";
 
 //Muestra todos los campos dentro de pacientes
 export const getPacientes = async (req, res) => {
+  const { id_psicologo } = req.query; // Obtén el id_psicologo desde los parámetros de consulta
+
   const connection = await connect();
-  const [rows] = await connection.query("SELECT * FROM pacientes");
-  res.json(rows);
+
+  // Verifica si se ha proporcionado el id_psicologo en la consulta
+  if (id_psicologo) {
+      const [rows] = await connection.query(
+          "SELECT * FROM pacientes WHERE id_psicologo = ?", 
+          [id_psicologo]
+      );
+      res.json(rows);
+  } else {
+      // Si no se proporciona id_psicologo, muestra todos los pacientes (o maneja el caso según tu necesidad)
+      const [rows] = await connection.query("SELECT * FROM pacientes");
+      res.json(rows);
+  }
 };
 
 //Filtra pacientes por id

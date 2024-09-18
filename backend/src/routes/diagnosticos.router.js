@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { GetDiagnosticos, GetDiagnostico, CreateDiagnostico, DeleteDiagnostico, PutDiagnostico } from '../controllers/diagnosticos.controller'
+import { GetDiagnosticos, GetDiagnostico, CreateDiagnostico, DeleteDiagnostico, PutDiagnostico, GetDiagnosticosByPaciente } from '../controllers/diagnosticos.controller'
 
 
 const router = Router();
@@ -9,5 +9,6 @@ router.get('/diagnosticos/:id_diagnostico', GetDiagnostico);
 router.post('/diagnosticos', CreateDiagnostico);
 router.delete('/diagnosticos/:id_diagnostico', DeleteDiagnostico)
 router.put('/diagnosticos/:id_diagnostico', PutDiagnostico);
+router.get('/diagnosticos/:id_paciente', GetDiagnosticosByPaciente);
 
 export default router 

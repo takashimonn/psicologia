@@ -98,11 +98,11 @@ Content-Type: application/json
 DELETE {{pacientes}}/8
 
 ###
-PUT {{pacientes}}/1
+PUT {{pacientes}}/3
 Content-Type: application/json
 
 {
-  "nombre": "Maximiliano"
+  "id_psicologo": 27
 }
 
 ###
