@@ -166,3 +166,8 @@ Content-Type: application/json
   "contrasena": "12345"
 }
 
+###
+GET http://localhost:3000/citas/paciente/1
+
+
+

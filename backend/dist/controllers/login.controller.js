@@ -15,22 +15,48 @@ function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" !=
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-// Verifica las credenciales del usuario
+// Verifica las credenciales del usuario (psicólogo o paciente)
 var verificarCredenciales = exports.verificarCredenciales = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$body, usuario, contrasena, connection, _yield$connection$que, _yield$connection$que2, rows;
+    var _req$body, usuario, contrasena, rol, connection, query, table, _yield$connection$que, _yield$connection$que2, rows;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _req$body = req.body, usuario = _req$body.usuario, contrasena = _req$body.contrasena;
+          _req$body = req.body, usuario = _req$body.usuario, contrasena = _req$body.contrasena, rol = _req$body.rol; // Añadimos el rol para diferenciar
           _context.prev = 1;
           _context.next = 4;
           return (0, _database.connect)();
         case 4:
           connection = _context.sent;
-          _context.next = 7;
-          return connection.query('SELECT * FROM psicologos WHERE usuario = ? AND contrasena = ?', [usuario, contrasena]);
-        case 7:
+          query = '';
+          table = '';
+          if (!(rol === 'psicologo')) {
+            _context.next = 12;
+            break;
+          }
+          // Si es un psicólogo
+          query = 'SELECT * FROM psicologos WHERE usuario = ? AND contrasena = ?';
+          table = 'psicologos';
+          _context.next = 18;
+          break;
+        case 12:
+          if (!(rol === 'paciente')) {
+            _context.next = 17;
+            break;
+          }
+          // Si es un paciente
+          query = 'SELECT * FROM pacientes WHERE usuario = ? AND contrasena = ?';
+          table = 'pacientes';
+          _context.next = 18;
+          break;
+        case 17:
+          return _context.abrupt("return", res.status(400).json({
+            error: 'Rol no válido'
+          }));
+        case 18:
+          _context.next = 20;
+          return connection.query(query, [usuario, contrasena]);
+        case 20:
           _yield$connection$que = _context.sent;
           _yield$connection$que2 = _slicedToArray(_yield$connection$que, 1);
           rows = _yield$connection$que2[0];
@@ -38,28 +64,30 @@ var verificarCredenciales = exports.verificarCredenciales = /*#__PURE__*/functio
             // Usuario encontrado
             res.status(200).json({
               exists: true,
-              user: rows[0]
+              user: rows[0],
+              rol: rol
             });
           } else {
             // Usuario no encontrado
             res.status(401).json({
-              exists: false
+              exists: false,
+              message: 'Usuario o contraseña incorrectos'
             });
           }
-          _context.next = 17;
+          _context.next = 30;
           break;
-        case 13:
-          _context.prev = 13;
+        case 26:
+          _context.prev = 26;
           _context.t0 = _context["catch"](1);
           console.error('Error en la consulta:', _context.t0);
           res.status(500).json({
             error: 'Error en el servidor'
           });
-        case 17:
+        case 30:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 13]]);
+    }, _callee, null, [[1, 26]]);
   }));
   return function verificarCredenciales(_x, _x2) {
     return _ref.apply(this, arguments);
