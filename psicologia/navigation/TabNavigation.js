@@ -7,6 +7,7 @@ import CitasScreen from "../screens/CitasScreen";
 import DiagnosticosScreen from "../screens/DiagnosticosScreen";
 import FormCitasScreen from "../screens/FormCitasScreen";
 import CitasDiaScreen from "../screens/CitasDiaScreen";
+import CitaPacienteScreen from "../screens/CitaPcienteScreen";
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 const Stack = createStackNavigator();
@@ -56,11 +57,21 @@ function TabNavigator() {
     return (
         <Tab.Navigator>
           {userRole !== 'psicologo' && (
-            <Tab.Screen name="Home" component={HomeScreen} />
+            <>
+              <Tab.Screen name="Home" component={HomeScreen} />
+              <Tab.Screen name="CitasPacientes" component={CitaPacienteScreen} />
+            </>
+
+            
           )}
-            <Tab.Screen name="CitasDia" component={CitasDiaScreen} />
-            <Tab.Screen name="Citas" component={CitasStack} options={{ headerShown: false }} />
-            <Tab.Screen name="Diagnosticos" component={DiagnosticosScreen} />
+
+      {userRole !== 'paciente' && (
+        <>
+          <Tab.Screen name="CitasDia" component={CitasDiaScreen} />
+          <Tab.Screen name="Citas" component={CitasStack} options={{ headerShown: false }} />
+          <Tab.Screen name="Diagnosticos" component={DiagnosticosScreen} />
+        </>
+      )}
         </Tab.Navigator>
     );
 }
