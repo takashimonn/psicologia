@@ -4,7 +4,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.PutCita = exports.GetCitas = exports.GetCita = exports.DeleteCita = exports.CreateCita = void 0;
+exports.PutCita = exports.GetCitasPaciente = exports.GetCitas = exports.GetCita = exports.DeleteCita = exports.CreateCita = exports.ConfirmarCita = void 0;
 var _database = require("../database");
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -20,6 +20,7 @@ function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" !=
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+// Obtener todas las citas
 var GetCitas = exports.GetCitas = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
     var connection, _yield$connection$que, _yield$connection$que2, rows;
@@ -47,6 +48,8 @@ var GetCitas = exports.GetCitas = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
+
+// Obtener una cita por ID
 var GetCita = exports.GetCita = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
     var connection, _yield$connection$que3, _yield$connection$que4, rows;
@@ -74,9 +77,11 @@ var GetCita = exports.GetCita = /*#__PURE__*/function () {
     return _ref2.apply(this, arguments);
   };
 }();
-var CreateCita = exports.CreateCita = /*#__PURE__*/function () {
+
+// Obtener las citas de un paciente específico
+var GetCitasPaciente = exports.GetCitasPaciente = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
-    var connection, _yield$connection$que5, _yield$connection$que6, results;
+    var connection, _yield$connection$que5, _yield$connection$que6, rows;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
@@ -85,27 +90,27 @@ var CreateCita = exports.CreateCita = /*#__PURE__*/function () {
         case 2:
           connection = _context3.sent;
           _context3.next = 5;
-          return connection.query("INSERT INTO citas(id_psicologo, id_paciente, fecha_cita, hora_cita, tipo_cita, estado) VALUES (?,?,?,?,?,?)", [req.body.id_psicologo, req.body.id_paciente, req.body.fecha_cita, req.body.hora_cita, req.body.tipo_cita, req.body.estado]);
+          return connection.query("SELECT * FROM citas WHERE id_paciente = ?", [req.params.id_paciente]);
         case 5:
           _yield$connection$que5 = _context3.sent;
           _yield$connection$que6 = _slicedToArray(_yield$connection$que5, 1);
-          results = _yield$connection$que6[0];
-          res.json(_objectSpread({
-            id: results.insertId
-          }, req.body));
+          rows = _yield$connection$que6[0];
+          res.json(rows);
         case 9:
         case "end":
           return _context3.stop();
       }
     }, _callee3);
   }));
-  return function CreateCita(_x5, _x6) {
+  return function GetCitasPaciente(_x5, _x6) {
     return _ref3.apply(this, arguments);
   };
 }();
-var DeleteCita = exports.DeleteCita = /*#__PURE__*/function () {
+
+// Crear una nueva cita
+var CreateCita = exports.CreateCita = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
-    var connection;
+    var connection, _yield$connection$que7, _yield$connection$que8, results;
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
         case 0:
@@ -114,22 +119,29 @@ var DeleteCita = exports.DeleteCita = /*#__PURE__*/function () {
         case 2:
           connection = _context4.sent;
           _context4.next = 5;
-          return connection.query("DELETE FROM citas WHERE id_cita = ?", [req.params.id_cita]);
+          return connection.query("INSERT INTO citas(id_psicologo, id_paciente, fecha_cita, hora_cita, tipo_cita, estado) VALUES (?,?,?,?,?,?)", [req.body.id_psicologo, req.body.id_paciente, req.body.fecha_cita, req.body.hora_cita, req.body.tipo_cita, req.body.estado]);
         case 5:
-          res.sendStatus(204);
-        case 6:
+          _yield$connection$que7 = _context4.sent;
+          _yield$connection$que8 = _slicedToArray(_yield$connection$que7, 1);
+          results = _yield$connection$que8[0];
+          res.json(_objectSpread({
+            id: results.insertId
+          }, req.body));
+        case 9:
         case "end":
           return _context4.stop();
       }
     }, _callee4);
   }));
-  return function DeleteCita(_x7, _x8) {
+  return function CreateCita(_x7, _x8) {
     return _ref4.apply(this, arguments);
   };
 }();
-var PutCita = exports.PutCita = /*#__PURE__*/function () {
+
+// Eliminar una cita
+var DeleteCita = exports.DeleteCita = /*#__PURE__*/function () {
   var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
-    var connection, _yield$connection$que7, _yield$connection$que8, rows;
+    var connection;
     return _regeneratorRuntime().wrap(function _callee5$(_context5) {
       while (1) switch (_context5.prev = _context5.next) {
         case 0:
@@ -138,22 +150,89 @@ var PutCita = exports.PutCita = /*#__PURE__*/function () {
         case 2:
           connection = _context5.sent;
           _context5.next = 5;
-          return connection.query("UPDATE citas SET ? WHERE id_cita = ?", [req.body, req.params.id_cita]);
+          return connection.query("DELETE FROM citas WHERE id_cita = ?", [req.params.id_cita]);
         case 5:
-          _context5.next = 7;
-          return connection.query("SELECT * FROM citas WHERE id_cita = ?", [req.params.id_cita]);
-        case 7:
-          _yield$connection$que7 = _context5.sent;
-          _yield$connection$que8 = _slicedToArray(_yield$connection$que7, 1);
-          rows = _yield$connection$que8[0];
-          res.json(rows[0]);
-        case 11:
+          res.sendStatus(204);
+        case 6:
         case "end":
           return _context5.stop();
       }
     }, _callee5);
   }));
-  return function PutCita(_x9, _x10) {
+  return function DeleteCita(_x9, _x10) {
     return _ref5.apply(this, arguments);
+  };
+}();
+
+// Actualizar una cita
+var PutCita = exports.PutCita = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res) {
+    var connection, _yield$connection$que9, _yield$connection$que10, rows;
+    return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      while (1) switch (_context6.prev = _context6.next) {
+        case 0:
+          _context6.next = 2;
+          return (0, _database.connect)();
+        case 2:
+          connection = _context6.sent;
+          _context6.next = 5;
+          return connection.query("UPDATE citas SET ? WHERE id_cita = ?", [req.body, req.params.id_cita]);
+        case 5:
+          _context6.next = 7;
+          return connection.query("SELECT * FROM citas WHERE id_cita = ?", [req.params.id_cita]);
+        case 7:
+          _yield$connection$que9 = _context6.sent;
+          _yield$connection$que10 = _slicedToArray(_yield$connection$que9, 1);
+          rows = _yield$connection$que10[0];
+          res.json(rows[0]);
+        case 11:
+        case "end":
+          return _context6.stop();
+      }
+    }, _callee6);
+  }));
+  return function PutCita(_x11, _x12) {
+    return _ref6.apply(this, arguments);
+  };
+}();
+
+// Confirmar cita (actualizar estado a 'confirmada')
+var ConfirmarCita = exports.ConfirmarCita = /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(req, res) {
+    var connection, _yield$connection$que11, _yield$connection$que12, rows;
+    return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+      while (1) switch (_context7.prev = _context7.next) {
+        case 0:
+          _context7.next = 2;
+          return (0, _database.connect)();
+        case 2:
+          connection = _context7.sent;
+          _context7.next = 5;
+          return connection.query("UPDATE citas SET estado = 'confirmada' WHERE id_cita = ?", [req.params.id_cita]);
+        case 5:
+          _context7.next = 7;
+          return connection.query("SELECT * FROM citas WHERE id_cita = ?", [req.params.id_cita]);
+        case 7:
+          _yield$connection$que11 = _context7.sent;
+          _yield$connection$que12 = _slicedToArray(_yield$connection$que11, 1);
+          rows = _yield$connection$que12[0];
+          if (rows.length > 0) {
+            res.json({
+              message: 'Cita confirmada.',
+              cita: rows[0]
+            });
+          } else {
+            res.status(404).json({
+              message: 'Cita no encontrada.'
+            });
+          }
+        case 11:
+        case "end":
+          return _context7.stop();
+      }
+    }, _callee7);
+  }));
+  return function ConfirmarCita(_x13, _x14) {
+    return _ref7.apply(this, arguments);
   };
 }();
