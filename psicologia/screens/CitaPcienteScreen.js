@@ -1,23 +1,35 @@
 import { View, Text, Button, FlatList, Alert, StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const CitaPacienteScreen = ({ route }) => {
+const CitaPacienteScreen = () => {
   const [citas, setCitas] = useState([]);
   const [idPaciente, setIdPaciente] = useState(null);
 
-  // Verificar si route.params está disponible y si contiene id_paciente
   useEffect(() => {
-    if (route.params && route.params.id_paciente) {
-      setIdPaciente(route.params.id_paciente);
-    } else {
-      Alert.alert('Error', 'No se ha proporcionado el ID del paciente.');
-    }
-  }, [route.params]);
+    const getIdPaciente = async () => {
+      try {
+        const storedUserId = await AsyncStorage.getItem('userId');
+        if (storedUserId) {
+          setIdPaciente(storedUserId);
+          console.log('ID Paciente recuperado desde AsyncStorage:', storedUserId);
+        } else {
+          Alert.alert('Error', 'No se ha encontrado el ID del paciente en el almacenamiento.');
+        }
+      } catch (error) {
+        console.error('Error recuperando el ID del paciente:', error);
+        Alert.alert('Error', 'Error al recuperar el ID del paciente.');
+      }
+    };
+
+    getIdPaciente();
+  }, []);
 
   useEffect(() => {
     if (idPaciente !== null) {
       const fetchCitas = async () => {
         try {
+          console.log('ID Paciente utilizado para fetch:', idPaciente);
           const response = await fetch(`http://192.168.1.16:3000/citas/paciente/${idPaciente}`);
           if (!response.ok) {
             const errorData = await response.json();
