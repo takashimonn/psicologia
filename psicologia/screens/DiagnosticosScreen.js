@@ -1,5 +1,5 @@
-import { View, Text, FlatList, Alert, StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, Alert, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DiagnosticosScreen = () => {
@@ -9,10 +9,9 @@ const DiagnosticosScreen = () => {
   useEffect(() => {
     const getIdPsicologo = async () => {
       try {
-        const storedPsicologoId = await AsyncStorage.getItem('userId'); // Cambiado a 'userId'
+        const storedPsicologoId = await AsyncStorage.getItem('userId');
         if (storedPsicologoId) {
           setIdPsicologo(storedPsicologoId);
-          console.log('ID Psicólogo recuperado desde AsyncStorage:', storedPsicologoId);
         } else {
           Alert.alert('Error', 'No se ha encontrado el ID del psicólogo en el almacenamiento.');
         }
@@ -29,14 +28,12 @@ const DiagnosticosScreen = () => {
     if (idPsicologo !== null) {
       const fetchDiagnosticos = async () => {
         try {
-          console.log('ID Psicólogo utilizado para fetch:', idPsicologo);
           const response = await fetch(`http://192.168.1.16:3000/diagnosticos/psicologo/${idPsicologo}`);
           if (!response.ok) {
             const errorData = await response.json();
             throw new Error(`Error ${response.status}: ${errorData.message || 'Error al obtener los diagnósticos'}`);
           }
           const data = await response.json();
-          console.log('Datos recibidos:', data);
           setDiagnosticos(data);
         } catch (error) {
           console.error('Error:', error);
