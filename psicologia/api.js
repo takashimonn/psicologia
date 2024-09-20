@@ -39,7 +39,7 @@ export const getDiagnosticosByPaciente = async (idPaciente) => {
     }
 };
 
-export const cancelarCita = async (idCita) => {
+export const cancelCita = async (idCita) => {
     const res = await fetch(`${API_BASE}/citas/${idCita}`, {
         method: "PUT", // Usualmente se usa PUT para actualizar
         headers: {

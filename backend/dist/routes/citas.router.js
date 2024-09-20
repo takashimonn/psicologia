@@ -14,4 +14,5 @@ router["delete"]('/citas/:id_cita', _citas.DeleteCita);
 router.put('/citas/:id_cita', _citas.PutCita);
 router.get('/citas/paciente/:id_paciente', _citas.GetCitasPaciente);
 router.put('/citas/confirmar/:id_cita', _citas.ConfirmarCita);
+router.put('/citas/:id_cita/cancelar', _citas.CancelarCita);
 var _default = exports["default"] = router;
