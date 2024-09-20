@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { GetCitas, GetCita, CreateCita, DeleteCita, PutCita, GetCitasPaciente, ConfirmarCita } from '../controllers/citas.controller';
+import { GetCitas, GetCita, CreateCita, DeleteCita, PutCita, GetCitasPaciente, ConfirmarCita, CancelarCita } from '../controllers/citas.controller';
 
 const router = Router();
 
@@ -11,5 +11,7 @@ router.put('/citas/:id_cita', PutCita);
 
 router.get('/citas/paciente/:id_paciente', GetCitasPaciente);
 router.put('/citas/confirmar/:id_cita', ConfirmarCita);
+
+router.put('/citas/:id_cita/cancelar', CancelarCita);
 
 export default router

@@ -39,4 +39,42 @@ export const getDiagnosticosByPaciente = async (idPaciente) => {
     }
 };
 
+export const cancelarCita = async (idCita) => {
+    const res = await fetch(`${API_BASE}/citas/${idCita}`, {
+        method: "PUT", // Usualmente se usa PUT para actualizar
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ estado: 'cancelada' }), // Cambiamos el estado a 'cancelada'
+    });
+
+    if (!res.ok) {
+        const text = await res.text(); // Obtén el contenido como texto para depuración
+        console.error(`Error en la respuesta del servidor: ${text}`);
+        throw new Error(`Error al cancelar la cita: ${text}`);
+    }
+
+    return await res.json(); // Devuelve la cita actualizada
+};
+
+export const reagendarCita = async (idCita, nuevaFecha) => {
+    const res = await fetch(`${API_BASE}/citas/${idCita}`, {
+        method: "PUT", // Usualmente se usa PUT para actualizar
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fecha_cita: nuevaFecha }), // Solo actualiza la fecha
+    });
+
+    if (!res.ok) {
+        const text = await res.text(); // Obtén el contenido como texto para depuración
+        console.error(`Error en la respuesta del servidor: ${text}`);
+        throw new Error(`Error al reagendar la cita: ${text}`);
+    }
+
+    return await res.json(); // Devuelve la cita actualizada
+};
+
 

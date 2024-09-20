@@ -133,3 +133,25 @@ export const ConfirmarCita = async (req, res) => {
         res.status(500).json({ message: 'Error al confirmar la cita.' });
     }
 };
+
+// Cancelar una cita (actualizar estado a 'cancelada')
+export const CancelarCita = async (req, res) => {
+    try {
+        const connection = await connect();
+        const [result] = await connection.query("UPDATE citas SET estado = 'cancelada' WHERE id_cita = ?", [
+            req.params.id_cita,
+        ]);
+        if (result.affectedRows > 0) {
+            const [rows] = await connection.query("SELECT * FROM citas WHERE id_cita = ?", [
+                req.params.id_cita,
+            ]);
+            res.json({ message: 'Cita cancelada.', cita: rows[0] });
+        } else {
+            res.status(404).json({ message: 'Cita no encontrada.' });
+        }
+    } catch (error) {
+        console.error('Error al cancelar la cita:', error);
+        res.status(500).json({ message: 'Error al cancelar la cita.' });
+    }
+};
+
