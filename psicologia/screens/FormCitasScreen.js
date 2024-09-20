@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { saveCita } from '../api';
 
@@ -16,6 +16,7 @@ const FormCitasScreen = () => {
 
     const handleSubmit = () => {
         saveCita(cita);
+        Alert.alert('Cita registrada con exito');
     };
 
     return (

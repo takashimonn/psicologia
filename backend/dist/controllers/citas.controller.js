@@ -4,7 +4,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.PutCita = exports.GetCitasPaciente = exports.GetCitas = exports.GetCita = exports.DeleteCita = exports.CreateCita = exports.ConfirmarCita = void 0;
+exports.PutCita = exports.GetCitasPaciente = exports.GetCitas = exports.GetCita = exports.DeleteCita = exports.CreateCita = exports.ConfirmarCita = exports.CancelarCita = void 0;
 var _database = require("../database");
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -339,5 +339,64 @@ var ConfirmarCita = exports.ConfirmarCita = /*#__PURE__*/function () {
   }));
   return function ConfirmarCita(_x13, _x14) {
     return _ref7.apply(this, arguments);
+  };
+}();
+
+// Cancelar una cita (actualizar estado a 'cancelada')
+var CancelarCita = exports.CancelarCita = /*#__PURE__*/function () {
+  var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(req, res) {
+    var connection, _yield$connection$que17, _yield$connection$que18, result, _yield$connection$que19, _yield$connection$que20, rows;
+    return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+      while (1) switch (_context8.prev = _context8.next) {
+        case 0:
+          _context8.prev = 0;
+          _context8.next = 3;
+          return (0, _database.connect)();
+        case 3:
+          connection = _context8.sent;
+          _context8.next = 6;
+          return connection.query("UPDATE citas SET estado = 'cancelada' WHERE id_cita = ?", [req.params.id_cita]);
+        case 6:
+          _yield$connection$que17 = _context8.sent;
+          _yield$connection$que18 = _slicedToArray(_yield$connection$que17, 1);
+          result = _yield$connection$que18[0];
+          if (!(result.affectedRows > 0)) {
+            _context8.next = 18;
+            break;
+          }
+          _context8.next = 12;
+          return connection.query("SELECT * FROM citas WHERE id_cita = ?", [req.params.id_cita]);
+        case 12:
+          _yield$connection$que19 = _context8.sent;
+          _yield$connection$que20 = _slicedToArray(_yield$connection$que19, 1);
+          rows = _yield$connection$que20[0];
+          res.json({
+            message: 'Cita cancelada.',
+            cita: rows[0]
+          });
+          _context8.next = 19;
+          break;
+        case 18:
+          res.status(404).json({
+            message: 'Cita no encontrada.'
+          });
+        case 19:
+          _context8.next = 25;
+          break;
+        case 21:
+          _context8.prev = 21;
+          _context8.t0 = _context8["catch"](0);
+          console.error('Error al cancelar la cita:', _context8.t0);
+          res.status(500).json({
+            message: 'Error al cancelar la cita.'
+          });
+        case 25:
+        case "end":
+          return _context8.stop();
+      }
+    }, _callee8, null, [[0, 21]]);
+  }));
+  return function CancelarCita(_x15, _x16) {
+    return _ref8.apply(this, arguments);
   };
 }();

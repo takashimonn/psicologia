@@ -1,6 +1,6 @@
 // import React, { useEffect, useState } from 'react';
-// import { View, StyleSheet, ScrollView, Text, Alert, TouchableOpacity } from 'react-native';
-// import { getCitas, cancelarCita } from '../api';
+// import { View, StyleSheet, ScrollView, Text } from 'react-native';
+// import { getCitas } from '../api';
 // import CitasList from '../components/citasList';
 
 // const CitasScreen = () => {
@@ -16,34 +16,13 @@
 //     loadCitas();
 //   }, []);
 
-//   const handleCancelCita = async (idCita) => {
-//     try {
-//       await cancelarCita(idCita);
-//       Alert.alert('Éxito', 'Cita cancelada exitosamente.');
-//       loadCitas(); // Recargar citas después de cancelar
-//     } catch (error) {
-//       Alert.alert('Error', error.message);
-//     }
-//   };
-
-//   const renderCitas = () => {
-//     return citas.map(cita => (
-//       <View key={cita.id_cita} style={styles.citaContainer}>
-//         <Text style={styles.citaText}>ID: {cita.id_cita}</Text>
-//         <Text style={styles.citaText}>Estado: {cita.estado}</Text>
-//         {/* Otros detalles de la cita aquí */}
-//         <TouchableOpacity onPress={() => handleCancelCita(cita.id_cita)} style={styles.cancelButton}>
-//           <Text style={styles.cancelButtonText}>Cancelar</Text>
-//         </TouchableOpacity>
-//       </View>
-//     ));
-//   };
-
 //   return (
 //     <View style={styles.container}>
-//       <Text style={styles.header}>CITAS AGENDADAS</Text>
+//       <Text>
+//         CITAS AGENDADAS
+//       </Text>
 //       <ScrollView contentContainerStyle={styles.scrollContainer}>
-//         {renderCitas()}
+//         <CitasList citas={citas} />
 //       </ScrollView>
 //     </View>
 //   );
@@ -52,32 +31,11 @@
 // const styles = StyleSheet.create({
 //   container: {
 //     flex: 1,
-//     backgroundColor: '#f5f5f5',
+//     backgroundColor: '#f5f5f5', // Fondo gris claro para la pantalla
 //     padding: 10,
 //   },
 //   scrollContainer: {
-//     paddingBottom: 20,
-//   },
-//   citaContainer: {
-//     backgroundColor: '#fff',
-//     padding: 15,
-//     marginBottom: 10,
-//     borderRadius: 8,
-//     elevation: 2,
-//   },
-//   citaText: {
-//     fontSize: 16,
-//     marginBottom: 5,
-//   },
-//   cancelButton: {
-//     marginTop: 10,
-//     backgroundColor: 'red',
-//     padding: 10,
-//     borderRadius: 5,
-//   },
-//   cancelButtonText: {
-//     color: '#fff',
-//     textAlign: 'center',
+//     paddingBottom: 20, // Espacio para evitar que el contenido se oculte en la parte inferior
 //   },
 // });
 

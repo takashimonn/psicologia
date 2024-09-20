@@ -13,11 +13,11 @@ const PropuestasScreen = () => {
         if (storedPacienteId) {
           setIdPaciente(storedPacienteId);
         } else {
-          Alert.alert('Error', 'No se ha encontrado el ID del paciente en el almacenamiento.');
+          // Alert.alert('Error', 'No se ha encontrado el ID del paciente en el almacenamiento.');
         }
       } catch (error) {
         console.error('Error recuperando el ID del paciente:', error);
-        Alert.alert('Error', 'Error al recuperar el ID del paciente.');
+        // Alert.alert('Error', 'Error al recuperar el ID del paciente.');
       }
     };
 
