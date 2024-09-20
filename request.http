@@ -169,5 +169,8 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/citas/paciente/1
 
+###
+GET http://localhost:3000/diagnosticos/psicologo/27
+
 
 

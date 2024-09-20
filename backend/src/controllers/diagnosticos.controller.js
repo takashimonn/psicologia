@@ -1,4 +1,4 @@
-import {connect} from '../database';
+import { connect } from '../database';
 
 export const GetDiagnosticos = async(req, res) => {
     const connection = await connect();
@@ -49,11 +49,12 @@ export const PutDiagnostico = async(req, res) => {
     res.json(rows[0]);
 }
 
-// Ajusta la función para obtener el diagnóstico del paciente específico
-export const GetDiagnosticosByPaciente = async(req, res) => {
+
+// Obtener los diagnósticos según el id del psicólogo
+export const GetDiagnosticosByPsicologo = async (req, res) => {
     const connection = await connect();
-    const [rows] = await connection.query("SELECT * FROM diagnosticos WHERE id_paciente = ?", [
-        req.params.id_paciente,
+    const [rows] = await connection.query("SELECT * FROM diagnosticos WHERE id_psicologo = ?", [
+        req.params.id_psicologo,
     ]);
     res.json(rows);
-}
+};

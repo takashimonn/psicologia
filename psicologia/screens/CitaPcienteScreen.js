@@ -6,40 +6,39 @@ const CitaPacienteScreen = () => {
   const [citas, setCitas] = useState([]);
   const [idPaciente, setIdPaciente] = useState(null);
 
+  // Obtener el ID del paciente de AsyncStorage
   useEffect(() => {
     const getIdPaciente = async () => {
       try {
         const storedUserId = await AsyncStorage.getItem('userId');
         if (storedUserId) {
           setIdPaciente(storedUserId);
-          console.log('ID Paciente recuperado desde AsyncStorage:', storedUserId);
+          console.log('ID Paciente recuperado:', storedUserId);
         } else {
-          Alert.alert('Error', 'No se ha encontrado el ID del paciente en el almacenamiento.');
+          Alert.alert('Error', 'No se ha encontrado el ID del paciente.');
         }
       } catch (error) {
         console.error('Error recuperando el ID del paciente:', error);
         Alert.alert('Error', 'Error al recuperar el ID del paciente.');
       }
     };
-
     getIdPaciente();
   }, []);
 
+  // Obtener las citas del paciente una vez que el ID se haya recuperado
   useEffect(() => {
-    if (idPaciente !== null) {
+    if (idPaciente) {
       const fetchCitas = async () => {
         try {
-          console.log('ID Paciente utilizado para fetch:', idPaciente);
           const response = await fetch(`http://192.168.1.16:3000/citas/paciente/${idPaciente}`);
           if (!response.ok) {
             const errorData = await response.json();
             throw new Error(`Error ${response.status}: ${errorData.message || 'Error al obtener las citas'}`);
           }
           const data = await response.json();
-          console.log('Datos recibidos:', data);
           setCitas(data);
         } catch (error) {
-          console.error('Error:', error);
+          console.error('Error al obtener las citas:', error);
           Alert.alert('Error', 'Error al obtener las citas.');
         }
       };
@@ -48,9 +47,10 @@ const CitaPacienteScreen = () => {
     }
   }, [idPaciente]);
 
+  // Confirmar una cita
   const confirmarCita = async (id_cita) => {
     try {
-      const response = await fetch(`http://192.168.1.16:3000/citas/${id_cita}/confirmar`, {
+      const response = await fetch(`http://192.168.1.16:3000/citas/confirmar/${id_cita}/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -63,18 +63,21 @@ const CitaPacienteScreen = () => {
       }
 
       const data = await response.json();
-      Alert.alert('Éxito', `Cita confirmada para ${data.fecha_cita} a las ${data.hora_cita}`);
-      
-      // Actualizar la lista de citas después de confirmar una cita
-      setCitas(citas.map(cita => 
-        cita.id_cita === id_cita ? { ...cita, estado: 'confirmada' } : cita
-      ));
+      Alert.alert('Éxito', `Cita confirmada para el ${data.fecha_cita} a las ${data.hora_cita}`);
+
+      // Actualizar la lista de citas en el estado después de confirmar la cita
+      setCitas((prevCitas) =>
+        prevCitas.map((cita) =>
+          cita.id_cita === id_cita ? { ...cita, estado: 'confirmada' } : cita
+        )
+      );
     } catch (error) {
-      console.error('Error:', error);
-      Alert.alert('Error', 'Error de red. Por favor, inténtalo de nuevo.');
+      console.error('Error al confirmar la cita:', error);
+      Alert.alert('Error', 'Error de red. Inténtalo de nuevo.');
     }
   };
 
+  // Renderizar cada cita
   const renderItem = ({ item }) => (
     <View style={styles.citaContainer}>
       <Text style={styles.citaText}>Fecha: {item.fecha_cita}</Text>
@@ -96,7 +99,7 @@ const CitaPacienteScreen = () => {
       <FlatList
         data={citas}
         renderItem={renderItem}
-        keyExtractor={item => item.id_cita.toString()}
+        keyExtractor={(item) => item.id_cita.toString()}
       />
     </View>
   );

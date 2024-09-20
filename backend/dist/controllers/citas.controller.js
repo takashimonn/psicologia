@@ -27,22 +27,32 @@ var GetCitas = exports.GetCitas = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _context.next = 2;
+          _context.prev = 0;
+          _context.next = 3;
           return (0, _database.connect)();
-        case 2:
+        case 3:
           connection = _context.sent;
-          _context.next = 5;
+          _context.next = 6;
           return connection.query('SELECT * FROM citas');
-        case 5:
+        case 6:
           _yield$connection$que = _context.sent;
           _yield$connection$que2 = _slicedToArray(_yield$connection$que, 1);
           rows = _yield$connection$que2[0];
           res.json(rows);
-        case 9:
+          _context.next = 16;
+          break;
+        case 12:
+          _context.prev = 12;
+          _context.t0 = _context["catch"](0);
+          console.error('Error al obtener citas:', _context.t0);
+          res.status(500).json({
+            message: 'Error al obtener las citas.'
+          });
+        case 16:
         case "end":
           return _context.stop();
       }
-    }, _callee);
+    }, _callee, null, [[0, 12]]);
   }));
   return function GetCitas(_x, _x2) {
     return _ref.apply(this, arguments);
@@ -56,22 +66,38 @@ var GetCita = exports.GetCita = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          _context2.next = 2;
+          _context2.prev = 0;
+          _context2.next = 3;
           return (0, _database.connect)();
-        case 2:
+        case 3:
           connection = _context2.sent;
-          _context2.next = 5;
+          _context2.next = 6;
           return connection.query("SELECT * FROM citas WHERE id_cita = ?", [req.params.id_cita]);
-        case 5:
+        case 6:
           _yield$connection$que3 = _context2.sent;
           _yield$connection$que4 = _slicedToArray(_yield$connection$que3, 1);
           rows = _yield$connection$que4[0];
-          res.json(rows[0]);
-        case 9:
+          if (rows.length > 0) {
+            res.json(rows[0]);
+          } else {
+            res.status(404).json({
+              message: 'Cita no encontrada.'
+            });
+          }
+          _context2.next = 16;
+          break;
+        case 12:
+          _context2.prev = 12;
+          _context2.t0 = _context2["catch"](0);
+          console.error('Error al obtener la cita:', _context2.t0);
+          res.status(500).json({
+            message: 'Error al obtener la cita.'
+          });
+        case 16:
         case "end":
           return _context2.stop();
       }
-    }, _callee2);
+    }, _callee2, null, [[0, 12]]);
   }));
   return function GetCita(_x3, _x4) {
     return _ref2.apply(this, arguments);
@@ -85,22 +111,38 @@ var GetCitasPaciente = exports.GetCitasPaciente = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
-          _context3.next = 2;
+          _context3.prev = 0;
+          _context3.next = 3;
           return (0, _database.connect)();
-        case 2:
+        case 3:
           connection = _context3.sent;
-          _context3.next = 5;
+          _context3.next = 6;
           return connection.query("SELECT * FROM citas WHERE id_paciente = ?", [req.params.id_paciente]);
-        case 5:
+        case 6:
           _yield$connection$que5 = _context3.sent;
           _yield$connection$que6 = _slicedToArray(_yield$connection$que5, 1);
           rows = _yield$connection$que6[0];
-          res.json(rows);
-        case 9:
+          if (rows.length > 0) {
+            res.json(rows);
+          } else {
+            res.status(404).json({
+              message: 'No se encontraron citas para el paciente.'
+            });
+          }
+          _context3.next = 16;
+          break;
+        case 12:
+          _context3.prev = 12;
+          _context3.t0 = _context3["catch"](0);
+          console.error('Error al obtener citas del paciente:', _context3.t0);
+          res.status(500).json({
+            message: 'Error al obtener las citas del paciente.'
+          });
+        case 16:
         case "end":
           return _context3.stop();
       }
-    }, _callee3);
+    }, _callee3, null, [[0, 12]]);
   }));
   return function GetCitasPaciente(_x5, _x6) {
     return _ref3.apply(this, arguments);
@@ -114,24 +156,34 @@ var CreateCita = exports.CreateCita = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
         case 0:
-          _context4.next = 2;
+          _context4.prev = 0;
+          _context4.next = 3;
           return (0, _database.connect)();
-        case 2:
+        case 3:
           connection = _context4.sent;
-          _context4.next = 5;
+          _context4.next = 6;
           return connection.query("INSERT INTO citas(id_psicologo, id_paciente, fecha_cita, hora_cita, tipo_cita, estado) VALUES (?,?,?,?,?,?)", [req.body.id_psicologo, req.body.id_paciente, req.body.fecha_cita, req.body.hora_cita, req.body.tipo_cita, req.body.estado]);
-        case 5:
+        case 6:
           _yield$connection$que7 = _context4.sent;
           _yield$connection$que8 = _slicedToArray(_yield$connection$que7, 1);
           results = _yield$connection$que8[0];
-          res.json(_objectSpread({
+          res.status(201).json(_objectSpread({
             id: results.insertId
           }, req.body));
-        case 9:
+          _context4.next = 16;
+          break;
+        case 12:
+          _context4.prev = 12;
+          _context4.t0 = _context4["catch"](0);
+          console.error('Error al crear la cita:', _context4.t0);
+          res.status(500).json({
+            message: 'Error al crear la cita.'
+          });
+        case 16:
         case "end":
           return _context4.stop();
       }
-    }, _callee4);
+    }, _callee4, null, [[0, 12]]);
   }));
   return function CreateCita(_x7, _x8) {
     return _ref4.apply(this, arguments);
@@ -141,23 +193,42 @@ var CreateCita = exports.CreateCita = /*#__PURE__*/function () {
 // Eliminar una cita
 var DeleteCita = exports.DeleteCita = /*#__PURE__*/function () {
   var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
-    var connection;
+    var connection, _yield$connection$que9, _yield$connection$que10, result;
     return _regeneratorRuntime().wrap(function _callee5$(_context5) {
       while (1) switch (_context5.prev = _context5.next) {
         case 0:
-          _context5.next = 2;
+          _context5.prev = 0;
+          _context5.next = 3;
           return (0, _database.connect)();
-        case 2:
+        case 3:
           connection = _context5.sent;
-          _context5.next = 5;
+          _context5.next = 6;
           return connection.query("DELETE FROM citas WHERE id_cita = ?", [req.params.id_cita]);
-        case 5:
-          res.sendStatus(204);
         case 6:
+          _yield$connection$que9 = _context5.sent;
+          _yield$connection$que10 = _slicedToArray(_yield$connection$que9, 1);
+          result = _yield$connection$que10[0];
+          if (result.affectedRows > 0) {
+            res.sendStatus(204);
+          } else {
+            res.status(404).json({
+              message: 'Cita no encontrada.'
+            });
+          }
+          _context5.next = 16;
+          break;
+        case 12:
+          _context5.prev = 12;
+          _context5.t0 = _context5["catch"](0);
+          console.error('Error al eliminar la cita:', _context5.t0);
+          res.status(500).json({
+            message: 'Error al eliminar la cita.'
+          });
+        case 16:
         case "end":
           return _context5.stop();
       }
-    }, _callee5);
+    }, _callee5, null, [[0, 12]]);
   }));
   return function DeleteCita(_x9, _x10) {
     return _ref5.apply(this, arguments);
@@ -167,29 +238,45 @@ var DeleteCita = exports.DeleteCita = /*#__PURE__*/function () {
 // Actualizar una cita
 var PutCita = exports.PutCita = /*#__PURE__*/function () {
   var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res) {
-    var connection, _yield$connection$que9, _yield$connection$que10, rows;
+    var connection, _yield$connection$que11, _yield$connection$que12, rows;
     return _regeneratorRuntime().wrap(function _callee6$(_context6) {
       while (1) switch (_context6.prev = _context6.next) {
         case 0:
-          _context6.next = 2;
+          _context6.prev = 0;
+          _context6.next = 3;
           return (0, _database.connect)();
-        case 2:
+        case 3:
           connection = _context6.sent;
-          _context6.next = 5;
+          _context6.next = 6;
           return connection.query("UPDATE citas SET ? WHERE id_cita = ?", [req.body, req.params.id_cita]);
-        case 5:
-          _context6.next = 7;
+        case 6:
+          _context6.next = 8;
           return connection.query("SELECT * FROM citas WHERE id_cita = ?", [req.params.id_cita]);
-        case 7:
-          _yield$connection$que9 = _context6.sent;
-          _yield$connection$que10 = _slicedToArray(_yield$connection$que9, 1);
-          rows = _yield$connection$que10[0];
-          res.json(rows[0]);
-        case 11:
+        case 8:
+          _yield$connection$que11 = _context6.sent;
+          _yield$connection$que12 = _slicedToArray(_yield$connection$que11, 1);
+          rows = _yield$connection$que12[0];
+          if (rows.length > 0) {
+            res.json(rows[0]);
+          } else {
+            res.status(404).json({
+              message: 'Cita no encontrada.'
+            });
+          }
+          _context6.next = 18;
+          break;
+        case 14:
+          _context6.prev = 14;
+          _context6.t0 = _context6["catch"](0);
+          console.error('Error al actualizar la cita:', _context6.t0);
+          res.status(500).json({
+            message: 'Error al actualizar la cita.'
+          });
+        case 18:
         case "end":
           return _context6.stop();
       }
-    }, _callee6);
+    }, _callee6, null, [[0, 14]]);
   }));
   return function PutCita(_x11, _x12) {
     return _ref6.apply(this, arguments);
@@ -199,38 +286,56 @@ var PutCita = exports.PutCita = /*#__PURE__*/function () {
 // Confirmar cita (actualizar estado a 'confirmada')
 var ConfirmarCita = exports.ConfirmarCita = /*#__PURE__*/function () {
   var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(req, res) {
-    var connection, _yield$connection$que11, _yield$connection$que12, rows;
+    var connection, _yield$connection$que13, _yield$connection$que14, result, _yield$connection$que15, _yield$connection$que16, rows;
     return _regeneratorRuntime().wrap(function _callee7$(_context7) {
       while (1) switch (_context7.prev = _context7.next) {
         case 0:
-          _context7.next = 2;
+          _context7.prev = 0;
+          _context7.next = 3;
           return (0, _database.connect)();
-        case 2:
+        case 3:
           connection = _context7.sent;
-          _context7.next = 5;
+          _context7.next = 6;
           return connection.query("UPDATE citas SET estado = 'confirmada' WHERE id_cita = ?", [req.params.id_cita]);
-        case 5:
-          _context7.next = 7;
-          return connection.query("SELECT * FROM citas WHERE id_cita = ?", [req.params.id_cita]);
-        case 7:
-          _yield$connection$que11 = _context7.sent;
-          _yield$connection$que12 = _slicedToArray(_yield$connection$que11, 1);
-          rows = _yield$connection$que12[0];
-          if (rows.length > 0) {
-            res.json({
-              message: 'Cita confirmada.',
-              cita: rows[0]
-            });
-          } else {
-            res.status(404).json({
-              message: 'Cita no encontrada.'
-            });
+        case 6:
+          _yield$connection$que13 = _context7.sent;
+          _yield$connection$que14 = _slicedToArray(_yield$connection$que13, 1);
+          result = _yield$connection$que14[0];
+          if (!(result.affectedRows > 0)) {
+            _context7.next = 18;
+            break;
           }
-        case 11:
+          _context7.next = 12;
+          return connection.query("SELECT * FROM citas WHERE id_cita = ?", [req.params.id_cita]);
+        case 12:
+          _yield$connection$que15 = _context7.sent;
+          _yield$connection$que16 = _slicedToArray(_yield$connection$que15, 1);
+          rows = _yield$connection$que16[0];
+          res.json({
+            message: 'Cita confirmada.',
+            cita: rows[0]
+          });
+          _context7.next = 19;
+          break;
+        case 18:
+          res.status(404).json({
+            message: 'Cita no encontrada.'
+          });
+        case 19:
+          _context7.next = 25;
+          break;
+        case 21:
+          _context7.prev = 21;
+          _context7.t0 = _context7["catch"](0);
+          console.error('Error al confirmar la cita:', _context7.t0);
+          res.status(500).json({
+            message: 'Error al confirmar la cita.'
+          });
+        case 25:
         case "end":
           return _context7.stop();
       }
-    }, _callee7);
+    }, _callee7, null, [[0, 21]]);
   }));
   return function ConfirmarCita(_x13, _x14) {
     return _ref7.apply(this, arguments);
