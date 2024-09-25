@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { verificarCredenciales } from '../controllers/login.controller';
+import { verificarCredenciales } from '../controllers/login.controller.js';
 
 const router = Router();
 

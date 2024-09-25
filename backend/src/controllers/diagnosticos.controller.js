@@ -1,4 +1,4 @@
-import { connect } from '../database';
+import { connect } from '../database.js';
 
 export const GetDiagnosticos = async(req, res) => {
     const connection = await connect();
