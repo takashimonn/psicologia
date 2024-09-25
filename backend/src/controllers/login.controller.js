@@ -1,4 +1,4 @@
-import { connect } from "../database";
+import { connect } from "../database.js";
 
 // Verifica las credenciales del usuario (psicólogo o paciente)
 export const verificarCredenciales = async (req, res) => {
