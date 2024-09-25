@@ -12,10 +12,11 @@ const app = express();
 // app.use(cors());
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: "https://psicologia.vercel.app",
         credentials: true,
     })
-)
+);
+
 app.use(morgan());
 app.use(express.json());
 
@@ -31,7 +32,10 @@ app.use(NotasRouter);
 
 // import app from './app';
 
-app.listen(3000)
-console.log('server on port 3000')
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server on port ${PORT}`);
+});
+
 
 export default app; 
