@@ -37,5 +37,8 @@ app.listen(PORT, () => {
     console.log(`Server on port ${PORT}`);
 });
 
+app.get('/', (req, res) => {
+    res.send('API en funcionamiento'); // O cualquier mensaje que desees
+});
 
 export default app; 
