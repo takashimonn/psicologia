@@ -10,6 +10,7 @@ import CitaPacienteScreen from "../screens/CitaPcienteScreen";
 import PropuestasScreen from '../screens/PropuestasScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TouchableOpacity, Text } from 'react-native';
+import { MaterialIcons, FontAwesome } from '@expo/vector-icons'; 
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -68,21 +69,44 @@ function TabNavigator() {
     getUserRole();
   }, []);
 
-
-
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home-outline';
+            return <MaterialIcons name={iconName} size={size} color={color} />;
+          } else if (route.name === 'CitasPacientes') {
+            iconName = focused ? 'person' : 'person-outline';
+            return <MaterialIcons name={iconName} size={size} color={color} />;
+          } else if (route.name === 'CitasDia') {
+            iconName = focused ? 'today' : 'calendar-today';
+            return <MaterialIcons name={iconName} size={size} color={color} />;
+          } else if (route.name === 'Citas') {
+            iconName = focused ? 'event' : 'event-note';
+            return <MaterialIcons name={iconName} size={size} color={color} />;
+          } else if (route.name === 'Diagnosticos') {
+            iconName = focused ? 'assignment' : 'assignment-late';
+            return <MaterialIcons name={iconName} size={size} color={color} />;
+          }
+        },
+        tabBarActiveTintColor: route.name === 'Home' ? 'blue' : 'purple',
+        tabBarInactiveTintColor: 'gray',
+      })}
+    >
       {userRole !== 'psicologo' && (
         <>
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="CitasPacientes" component={CitaPacienteScreen} />
+          <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarLabel: 'Inicio' }} />
+          <Tab.Screen name="CitasPacientes" component={CitaPacienteScreen} options={{ tabBarLabel: 'Mis Citas' }} />
         </>
       )}
       {userRole !== 'paciente' && (
         <>
-          <Tab.Screen name="CitasDia" component={CitasDiaScreen} />
-          <Tab.Screen name="Citas" component={CitasStack} options={{ headerShown: false }} />
-          <Tab.Screen name="Diagnosticos" component={DiagnosticosStack} options={{ headerShown: false }} />
+          <Tab.Screen name="CitasDia" component={CitasDiaScreen} options={{ tabBarLabel: 'Citas de Hoy' }} />
+          <Tab.Screen name="Citas" component={CitasStack} options={{ tabBarLabel: 'Citas', headerShown: false }} />
+          <Tab.Screen name="Diagnosticos" component={DiagnosticosStack} options={{ tabBarLabel: 'Diagnósticos', headerShown: false }} />
         </>
       )}
     </Tab.Navigator>
@@ -90,4 +114,3 @@ function TabNavigator() {
 }
 
 export default TabNavigator;
-
