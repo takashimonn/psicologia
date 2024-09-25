@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 var _express = require("express");
-var _loginController = require("../controllers/login.controller.js");
+var _login = require("../controllers/login.controller");
 var router = (0, _express.Router)();
 
 // Otras rutas
-router.post("/login", _loginController.verificarCredenciales);
+router.post("/login", _login.verificarCredenciales);
 var _default = exports["default"] = router;

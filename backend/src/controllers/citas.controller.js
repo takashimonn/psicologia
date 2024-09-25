@@ -1,7 +1,5 @@
 
 import { connect } from "../database";
-//creo que esto ya se subio bien 
-
 
 // Obtener todas las citas
 export const GetCitas = async (req, res) => {

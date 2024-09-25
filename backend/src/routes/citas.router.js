@@ -1,9 +1,5 @@
 import { Router } from 'express';
-
-
 import { GetCitas, GetCita, CreateCita, DeleteCita, PutCita, GetCitasPaciente, ConfirmarCita, CancelarCita } from '../controllers/citas.controller';
-
-
 
 const router = Router();
 

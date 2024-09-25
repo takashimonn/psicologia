@@ -1,4 +1,4 @@
-import { connect } from "../database.js";
+import { connect } from "../database";
 
 //Muestra todos los campos dentro de pacientes
 export const getPacientes = async (req, res) => {

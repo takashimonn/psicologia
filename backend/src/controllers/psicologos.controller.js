@@ -1,4 +1,4 @@
-import { connect } from "../database.js"; 
+import { connect } from "../database"; 
 
 
 export const GetPsicologos = async (req, res) => {

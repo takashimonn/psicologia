@@ -1,9 +1,5 @@
 import { Router } from 'express';
-
 import { GetDiagnosticos, GetDiagnostico, CreateDiagnostico, DeleteDiagnostico, PutDiagnostico, GetDiagnosticosByPsicologo } from '../controllers/diagnosticos.controller'
-
-
-
 
 const router = Router();
 
