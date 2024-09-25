@@ -51,6 +51,7 @@ export const GetCitasPaciente = async (req, res) => {
     }
 };
 
+
 // Crear una nueva cita
 export const CreateCita = async (req, res) => {
     try {

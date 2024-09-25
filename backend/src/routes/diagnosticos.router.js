@@ -4,6 +4,7 @@ import { GetDiagnosticos, GetDiagnostico, CreateDiagnostico, DeleteDiagnostico, 
 
 
 
+
 const router = Router();
 
 router.get('/diagnosticos', GetDiagnosticos);
