@@ -1,4 +1,4 @@
-const API_BASE = 'http://192.168.1.16:3000';
+const API_BASE = 'http://192.168.1.7:3000';
 
 // Ajusta las rutas según la estructura de tu backend
 export const getCitas = async () => {
@@ -77,4 +77,25 @@ export const reagendarCita = async (idCita, nuevaFecha) => {
     return await res.json(); // Devuelve la cita actualizada
 };
 
-
+export const login = async (usuario, contrasena, rol) => {
+    try {
+      const response = await fetch(`${API_BASE}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ usuario, contrasena, rol }),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Error en la autenticación.');
+      }
+  
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error de red:', error);
+      throw error; // Lanza el error para manejarlo en la pantalla
+    }
+  };

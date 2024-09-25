@@ -2,13 +2,14 @@ import { View, Text, TouchableOpacity, StyleSheet, TextInput, Alert } from 'reac
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Image } from 'expo-image'; // Cambiamos a Image
+import { Image } from 'expo-image';
+import { login } from '../api'; // Asegúrate de poner la ruta correcta a tu archivo api.js
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [usuario, setUsuario] = useState('');
   const [contrasena, setContrasena] = useState('');
-  const [rol, setRol] = useState('psicologo'); // Estado para el rol
+  const [rol, setRol] = useState('psicologo');
 
   const handleLogin = async () => {
     if (!usuario || !contrasena) {
@@ -20,52 +21,21 @@ const LoginScreen = () => {
       Alert.alert('Error', 'Por favor, selecciona el rol.');
       return;
     }
-  
+
     try {
+      const data = await login(usuario, contrasena, rol); // Llama a la función de inicio de sesión
 
-
-      const response = await fetch('http://192.168.1.16:3000/login', {
-
-
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ usuario, contrasena, rol }),
-      });
-  
-      if (!response.ok) {
-        const errorData = await response.json();
-        Alert.alert('Error', errorData.message || 'Usuario y/o contraseña incorrectos.');
-        return;
-      }
-  
-      const data = await response.json();
-      
-      console.log('Datos recibidos:', data); // Verifica los datos que se están recibiendo
-  
       if (data.exists && data.user) {
-        // Guarda el rol y el ID en AsyncStorage
-        const { rol, id_paciente, id_psicologo } = data.user; // Extraemos ambos ID's para decidir luego
-  
-        if (rol) {
-          await AsyncStorage.setItem('userRole', rol.toString());
-        } else {
-          console.warn('El rol del usuario no está definido en la respuesta.');
-        }
-  
-        // Verificamos si el rol es paciente o psicólogo y guardamos el ID correspondiente
+        const { rol, id_paciente, id_psicologo } = data.user;
+
+        await AsyncStorage.setItem('userRole', rol.toString());
+        
         if (rol === 'paciente' && id_paciente) {
           await AsyncStorage.setItem('userId', id_paciente.toString());
-          console.log('ID Paciente guardado:', id_paciente);
         } else if (rol === 'psicologo' && id_psicologo) {
           await AsyncStorage.setItem('userId', id_psicologo.toString());
-          console.log('ID Psicólogo guardado:', id_psicologo);
-        } else {
-          console.warn('El ID del usuario no está definido en la respuesta.');
         }
-  
-        // Redirigir a la pantalla principal
+
         navigation.navigate('Tabs');
         setUsuario('');
         setContrasena('');
@@ -74,25 +44,24 @@ const LoginScreen = () => {
         Alert.alert('Error', 'Usuario o contraseña incorrectos');
       }
     } catch (error) {
-      console.error('Error:', error);
-      Alert.alert('Error', 'Error de red. Por favor, inténtalo de nuevo.');
+      Alert.alert('Error', error.message || 'Error de red. Por favor, inténtalo de nuevo.');
     }
   };
+
   return (
     <View style={styles.container}>
       <Image
         style={styles.image}
-        source={require('../assets/logo.png')} // Imagen en la parte superior
+        source={require('../assets/logo.png')}
       />
-        <Text style={styles.title}>Bienvenido/a</Text>
-        <Text style={styles.subtitle}>Ingresa tus datos</Text>
+      <Text style={styles.title}>Bienvenido/a</Text>
+      <Text style={styles.subtitle}>Ingresa tus datos</Text>
       <TextInput 
         placeholder="Usuario" 
         style={styles.input}
         onChangeText={text => setUsuario(text)}
         value={usuario}
       />
-
       <TextInput 
         placeholder="Contraseña" 
         secureTextEntry={true} 
@@ -100,7 +69,6 @@ const LoginScreen = () => {
         onChangeText={text => setContrasena(text)}
         value={contrasena}
       />
-
       <View style={styles.roleContainer}>
         <TouchableOpacity 
           onPress={() => setRol('psicologo')} 
@@ -143,18 +111,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     marginBottom: 15,
-  
-
-  }
-  ,
+  },
   subtitle: {
     fontSize: 20,
     color: '#FFFFFF',
     textAlign: 'center',
     marginBottom: 30,
-  
-    
-
   },
   input: {
     width: '80%', 
@@ -165,7 +127,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10, 
     marginBottom: 20,
     backgroundColor: '#FFF', 
-    color:"#ABA6A6"
+    color: "#ABA6A6"
   },
   buttonText: {
     fontSize: 18,
