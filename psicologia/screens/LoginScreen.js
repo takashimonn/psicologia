@@ -23,8 +23,29 @@ const LoginScreen = () => {
     }
 
     try {
+<<<<<<< HEAD
       const data = await login(usuario, contrasena, rol); // Llama a la función de inicio de sesión
 
+=======
+      const response = await fetch('http://192.168.1.74:3000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ usuario, contrasena, rol }),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        Alert.alert('Error', errorData.message || 'Usuario y/o contraseña incorrectos.');
+        return;
+      }
+  
+      const data = await response.json();
+      
+      console.log('Datos recibidos:', data); // Verifica los datos que se están recibiendo
+  
+>>>>>>> work
       if (data.exists && data.user) {
         const { rol, id_paciente, id_psicologo } = data.user;
 

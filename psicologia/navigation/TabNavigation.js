@@ -7,6 +7,8 @@ import DiagnosticosScreen from '../screens/DiagnosticosScreen';
 import FormCitasScreen from '../screens/FormCitasScreen';
 import CitasDiaScreen from '../screens/CitasDiaScreen';
 import CitaPacienteScreen from "../screens/CitaPcienteScreen";
+import PerfilScreen from "../screens/ProfileScreen";
+import PacientesListaScreen from "../screens/PacientesListaScreen";
 import PropuestasScreen from '../screens/PropuestasScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TouchableOpacity, Text } from 'react-native';
@@ -24,8 +26,10 @@ function CitasStack() {
         options={({ navigation }) => ({
           headerRight: () => (
             <TouchableOpacity onPress={() => navigation.navigate("FormCitas")}>
-              <Text style={{ marginRight: 20 }}>New</Text>
-            </TouchableOpacity>
+             <MaterialIcons name="add-circle-outline" size={24} color="#918FCC" style={{ marginRight: 8 }} />
+
+            
+           </TouchableOpacity>
           ),
         })}
       />
@@ -90,6 +94,12 @@ function TabNavigator() {
           } else if (route.name === 'Diagnosticos') {
             iconName = focused ? 'assignment' : 'assignment-late';
             return <MaterialIcons name={iconName} size={size} color={color} />;
+          } else if (route.name === 'Profile') {
+            iconName = focused ? 'account-circle' : 'account-circle-outline';
+            return <MaterialIcons name={iconName} size={size} color={color} />;
+          } else if (route.name === 'Pacientes') {
+            iconName = focused ? 'group' : 'group-outline';
+            return <MaterialIcons name={iconName} size={size} color={color} />;
           }
         },
         tabBarActiveTintColor: route.name === 'Home' ? 'blue' : 'purple',
@@ -107,6 +117,9 @@ function TabNavigator() {
           <Tab.Screen name="CitasDia" component={CitasDiaScreen} options={{ tabBarLabel: 'Citas de Hoy' }} />
           <Tab.Screen name="Citas" component={CitasStack} options={{ tabBarLabel: 'Citas', headerShown: false }} />
           <Tab.Screen name="Diagnosticos" component={DiagnosticosStack} options={{ tabBarLabel: 'Diagnósticos', headerShown: false }} />
+          <Tab.Screen name="Perfil" component={PerfilScreen} options={{ tabBarLabel: 'Perfil' }} />
+          <Tab.Screen name="Pacientes" component={PacientesListaScreen} options={{ tabBarLabel: 'Pacientes' }}  />
+
         </>
       )}
     </Tab.Navigator>
