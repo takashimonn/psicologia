@@ -1,10 +1,11 @@
-const API_BASE = 'http://192.168.1.16:3000';
+const API_BASE = 'http://192.168.1.74:3000';
 
 // Ajusta las rutas según la estructura de tu backend
 export const getCitas = async () => {
     const res = await fetch(`${API_BASE}/citas`);
     return await res.json();
 };
+
 
 export const saveCita = async (newCita) => {
     const res = await fetch(`${API_BASE}/citas`, {
@@ -20,6 +21,10 @@ export const saveCita = async (newCita) => {
 
 export const getPacientes = async () => {
     const res = await fetch(`${API_BASE}/pacientes`); // Ajusta la URL según tu backend
+    return await res.json();
+};
+export const getPacientesBypsicologo = async () => {
+    const res = await fetch(`${API_BASE}/pacientes/${id_psicologo}`); // Ajusta la URL según tu backend
     return await res.json();
 };
 
