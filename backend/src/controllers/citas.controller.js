@@ -1,4 +1,4 @@
-import { connect } from "../database";
+import { connect } from "../database.js";
 
 // Obtener todas las citas
 export const GetCitas = async (req, res) => {

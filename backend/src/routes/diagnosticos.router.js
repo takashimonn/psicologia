@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { GetDiagnosticos, GetDiagnostico, CreateDiagnostico, DeleteDiagnostico, PutDiagnostico, GetDiagnosticosByPsicologo } from '../controllers/diagnosticos.controller'
+import { GetDiagnosticos, GetDiagnostico, CreateDiagnostico, DeleteDiagnostico, PutDiagnostico, GetDiagnosticosByPsicologo } from '../controllers/diagnosticos.controller.js'
 
 
 const router = Router();
