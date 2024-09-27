@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-const API_BASE = 'http://192.168.1.7:3000';
-=======
 const API_BASE = 'http://192.168.1.74:3000';
->>>>>>> work
 
 // Ajusta las rutas según la estructura de tu backend
 export const getCitas = async () => {
