@@ -23,10 +23,6 @@ const LoginScreen = () => {
     }
 
     try {
-<<<<<<< HEAD
-      const data = await login(usuario, contrasena, rol); // Llama a la función de inicio de sesión
-
-=======
       const response = await fetch('http://192.168.1.74:3000/login', {
         method: 'POST',
         headers: {
@@ -45,7 +41,6 @@ const LoginScreen = () => {
       
       console.log('Datos recibidos:', data); // Verifica los datos que se están recibiendo
   
->>>>>>> work
       if (data.exists && data.user) {
         const { rol, id_paciente, id_psicologo } = data.user;
 
