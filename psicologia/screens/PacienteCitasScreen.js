@@ -1,4 +1,4 @@
-import { View, Text, Button, FlatList, Alert, StyleSheet } from 'react-native';
+import { View, Text, Button, FlatList, Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -25,12 +25,12 @@ const CitaPacienteScreen = () => {
     getIdPaciente();
   }, []);
 
-  // Obtener las citas del paciente una vez que el ID se haya recuperado
+  // CAMBIAR A ENDPOINT
   useEffect(() => {
     if (idPaciente) {
       const fetchCitas = async () => {
         try {
-          const response = await fetch(`http://192.168.1.16:3000/citas/paciente/${idPaciente}`);
+          const response = await fetch(`http://192.168.1.74:3000/citas/paciente/${idPaciente}`);
           if (!response.ok) {
             const errorData = await response.json();
             throw new Error(`Error ${response.status}: ${errorData.message || 'Error al obtener las citas'}`);
@@ -50,7 +50,7 @@ const CitaPacienteScreen = () => {
   // Confirmar una cita
   const confirmarCita = async (id_cita) => {
     try {
-      const response = await fetch(`http://192.168.1.16:3000/citas/confirmar/${id_cita}/`, {
+      const response = await fetch(`http://192.168.1.74:3000/citas/confirmar/${id_cita}/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -77,6 +77,9 @@ const CitaPacienteScreen = () => {
     }
   };
 
+  // Filtrar las citas pendientes
+  const citasPendientes = citas.filter(cita => cita.estado === 'pendiente');
+
   // Renderizar cada cita
   const renderItem = ({ item }) => (
     <View style={styles.citaContainer}>
@@ -84,20 +87,20 @@ const CitaPacienteScreen = () => {
       <Text style={styles.citaText}>Hora: {item.hora_cita}</Text>
       <Text style={styles.citaText}>Tipo: {item.tipo_cita}</Text>
       <Text style={styles.citaText}>Estado: {item.estado}</Text>
-      {item.estado === 'Pendiente' && (
-        <Button
-          title="Confirmar Cita"
-          onPress={() => confirmarCita(item.id_cita)}
-        />
-      )}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => confirmarCita(item.id_cita)}
+      >
+        <Text style={styles.buttonText}>Confirmar Cita</Text>
+      </TouchableOpacity>
     </View>
   );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Citas Pendientes</Text>
+    
       <FlatList
-        data={citas}
+        data={citasPendientes}
         renderItem={renderItem}
         keyExtractor={(item) => item.id_cita.toString()}
       />
@@ -109,6 +112,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    backgroundColor: '#ccd6e6',   
   },
   header: {
     fontSize: 20,
@@ -121,10 +125,21 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
     borderWidth: 1,
     borderRadius: 8,
+    backgroundColor: '#fff', // Fondo blanco de la card
   },
   citaText: {
     fontSize: 16,
     marginBottom: 8,
+  },
+  button: {
+    backgroundColor: '#7eb8e1', // Color del botón
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff', // Texto blanco para el botón
+    fontSize: 16,
   },
 });
 

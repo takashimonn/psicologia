@@ -25,7 +25,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{piscologos}}/24
+DELETE {{piscologos}}/30
 
 ###
 PUT {{piscologos}}/27
@@ -106,6 +106,8 @@ Content-Type: application/json
 
 ###
 GET {{diagnosticos}}
+###
+GET {{diagnosticos}}
 
 ###
 GET {{diagnosticos}}/1
@@ -171,6 +173,10 @@ GET http://localhost:3000/citas/paciente/1
 
 ###
 GET http://localhost:3000/diagnosticos/psicologo/27
+
+###
+
+Get http://localhost:3000/diagnosticos/pacientes/1
 
 
 

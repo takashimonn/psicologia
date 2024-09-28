@@ -58,3 +58,11 @@ export const GetDiagnosticosByPsicologo = async (req, res) => {
     ]);
     res.json(rows);
 };
+
+export const GetDiagnosticosByPaciente = async (req, res) => {
+    const connection = await connect();
+    const [rows] = await connection.query("SELECT * FROM diagnosticos WHERE id_paciente = ?", [
+        req.params.id_paciente,
+    ]);
+    res.json(rows);
+};

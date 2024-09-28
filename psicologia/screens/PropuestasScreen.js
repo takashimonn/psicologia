@@ -32,7 +32,7 @@ const PropuestasScreen = () => {
 
     if (idPaciente) {
       try {
-        const response = await fetch('http://192.168.1.16:3000/notas', {
+        const response = await fetch('http://192.168.1.74:3000/notas', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

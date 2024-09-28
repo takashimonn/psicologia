@@ -1,14 +1,18 @@
-<<<<<<< HEAD
-const API_BASE = 'http://192.168.1.7:3000';
-=======
+// const API_BASE = 'http://192.168.1.7:3000';
 const API_BASE = 'http://192.168.1.74:3000';
->>>>>>> work
 
 // Ajusta las rutas según la estructura de tu backend
 export const getCitas = async () => {
     const res = await fetch(`${API_BASE}/citas`);
     return await res.json();
 };
+
+
+export const GetDiagnosticos = async () => {
+    const res = await fetch(`${API_BASE}/diagnosticos`);
+    return await res.json();
+};
+
 
 
 export const saveCita = async (newCita) => {
@@ -23,11 +27,24 @@ export const saveCita = async (newCita) => {
     return await res.json();
 };
 
+
+export const saveDiagnostico = async (newDiagnostico) => {
+    const res = await fetch(`${API_BASE}/diagnosticos`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newDiagnostico),
+    });
+    return await res.json();
+};
+
 export const getPacientes = async () => {
     const res = await fetch(`${API_BASE}/pacientes`); // Ajusta la URL según tu backend
     return await res.json();
 };
-export const getPacientesBypsicologo = async () => {
+export const getPacientesBypsicologo = async (id_psicologo) => {
     const res = await fetch(`${API_BASE}/pacientes/${id_psicologo}`); // Ajusta la URL según tu backend
     return await res.json();
 };
@@ -35,7 +52,8 @@ export const getPacientesBypsicologo = async () => {
 // En api.js
 export const getDiagnosticosByPaciente = async (idPaciente) => {
     try {
-        const response = await fetch(`${API_BASE}/diagnosticos/${idPaciente}`);
+        // /diagnosticos/pacientes/:id_paciente
+        const response = await fetch(`${API_BASE}/diagnosticos/pacientes/${idPaciente}`);
         if (!response.ok) {
             const text = await response.text(); // Obtén el contenido como texto para depuración
             console.error(`Error en la respuesta del servidor: ${text}`);
