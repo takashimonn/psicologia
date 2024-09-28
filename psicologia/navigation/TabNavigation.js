@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from '../screens/HomeScreen';
 import CitasScreen from '../screens/CitasScreen';
-import DiagnosticosScreen from '../screens/DiagnosticosScreen';
 import FormCitasScreen from '../screens/FormCitasScreen';
 import CitasDiaScreen from '../screens/CitasDiaScreen';
-import CitaPacienteScreen from "../screens/CitaPcienteScreen";
-import PerfilScreen from "../screens/ProfileScreen";
-import PacientesListaScreen from "../screens/PacientesListaScreen";
+import CitaPacienteScreen from "../screens/PacienteCitasScreen";
+import PacientesTablaScreen from "../screens/PacientesListaScreen";
 import PropuestasScreen from '../screens/PropuestasScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TouchableOpacity, Text } from 'react-native';
@@ -26,7 +23,7 @@ function CitasStack() {
         options={({ navigation }) => ({
           headerRight: () => (
             <TouchableOpacity onPress={() => navigation.navigate("FormCitas")}>
-             <MaterialIcons name="add-circle-outline" size={24} color="#918FCC" style={{ marginRight: 8 }} />
+             <MaterialIcons name="add-circle-outline" size={24} color="#8da46d" style={{ marginRight: 8 }} />
 
             
            </TouchableOpacity>
@@ -38,24 +35,6 @@ function CitasStack() {
   );
 }
 
-function DiagnosticosStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen 
-        name="Diagnosticos" 
-        component={DiagnosticosScreen}
-        options={({ navigation }) => ({
-          headerRight: () => (
-            <TouchableOpacity onPress={() => navigation.navigate('Propuestas')}>
-              <Text style={{ marginRight: 20 }}>Propuestas</Text>
-            </TouchableOpacity>
-          ),
-        })}
-      />
-      <Stack.Screen name="Propuestas" component={PropuestasScreen} />
-    </Stack.Navigator>
-  );
-}
 
 function TabNavigator() {
   const [userRole, setUserRole] = useState(null);
@@ -79,46 +58,41 @@ function TabNavigator() {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'Home') {
-            iconName = focused ? 'home' : 'home-outline';
-            return <MaterialIcons name={iconName} size={size} color={color} />;
-          } else if (route.name === 'CitasPacientes') {
+          // if (route.name === 'Home') {
+          //   iconName = focused ? 'home' : 'home-outline';
+          //   return <MaterialIcons name={iconName} size={size} color={color} />;
+          // } else 
+          if (route.name === 'CitasPacientes') {
             iconName = focused ? 'person' : 'person-outline';
             return <MaterialIcons name={iconName} size={size} color={color} />;
           } else if (route.name === 'CitasDia') {
-            iconName = focused ? 'today' : 'calendar-today';
+            iconName = 'event';
             return <MaterialIcons name={iconName} size={size} color={color} />;
           } else if (route.name === 'Citas') {
             iconName = focused ? 'event' : 'event-note';
             return <MaterialIcons name={iconName} size={size} color={color} />;
-          } else if (route.name === 'Diagnosticos') {
-            iconName = focused ? 'assignment' : 'assignment-late';
-            return <MaterialIcons name={iconName} size={size} color={color} />;
-          } else if (route.name === 'Profile') {
-            iconName = focused ? 'account-circle' : 'account-circle-outline';
-            return <MaterialIcons name={iconName} size={size} color={color} />;
           } else if (route.name === 'Pacientes') {
-            iconName = focused ? 'group' : 'group-outline';
-            return <MaterialIcons name={iconName} size={size} color={color} />;
+           iconName = focused ? 'group' : 'group';
+          return <MaterialIcons name={iconName} size={size} color={color} />;
           }
         },
-        tabBarActiveTintColor: route.name === 'Home' ? 'blue' : 'purple',
-        tabBarInactiveTintColor: 'gray',
+        tabBarActiveTintColor: '#fff',  // Active color for the icons
+        tabBarInactiveTintColor: '#fff',   // Inactive color for the icons
+        tabBarStyle: {
+          backgroundColor: '#7eb8e1',  }    // Background color of the tab bar
       })}
     >
       {userRole !== 'psicologo' && (
         <>
-          <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarLabel: 'Inicio' }} />
           <Tab.Screen name="CitasPacientes" component={CitaPacienteScreen} options={{ tabBarLabel: 'Mis Citas' }} />
+
         </>
       )}
       {userRole !== 'paciente' && (
         <>
-          <Tab.Screen name="CitasDia" component={CitasDiaScreen} options={{ tabBarLabel: 'Citas de Hoy' }} />
+          <Tab.Screen name="Citas del Día" component={CitasDiaScreen} options={{ tabBarLabel: 'Citas de Hoy' }} />
           <Tab.Screen name="Citas" component={CitasStack} options={{ tabBarLabel: 'Citas', headerShown: false }} />
-          <Tab.Screen name="Diagnosticos" component={DiagnosticosStack} options={{ tabBarLabel: 'Diagnósticos', headerShown: false }} />
-          <Tab.Screen name="Perfil" component={PerfilScreen} options={{ tabBarLabel: 'Perfil' }} />
-          <Tab.Screen name="Pacientes" component={PacientesListaScreen} options={{ tabBarLabel: 'Pacientes' }}  />
+          <Tab.Screen name="Pacientes" component={PacientesTablaScreen} options={{ tabBarLabel: 'Pacientes' }}  />
 
         </>
       )}

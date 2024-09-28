@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image } from 'expo-image';
-import { login } from '../api'; // Asegúrate de poner la ruta correcta a tu archivo api.js
+import { login } from '../api';  
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -21,7 +21,7 @@ const LoginScreen = () => {
       Alert.alert('Error', 'Por favor, selecciona el rol.');
       return;
     }
-
+  
     try {
       const response = await fetch('http://192.168.1.74:3000/login', {
         method: 'POST',
@@ -43,7 +43,7 @@ const LoginScreen = () => {
   
       if (data.exists && data.user) {
         const { rol, id_paciente, id_psicologo } = data.user;
-
+  
         await AsyncStorage.setItem('userRole', rol.toString());
         
         if (rol === 'paciente' && id_paciente) {
@@ -51,7 +51,7 @@ const LoginScreen = () => {
         } else if (rol === 'psicologo' && id_psicologo) {
           await AsyncStorage.setItem('userId', id_psicologo.toString());
         }
-
+  
         navigation.navigate('Tabs');
         setUsuario('');
         setContrasena('');
@@ -66,6 +66,12 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.backgroundShapesContainer}>
+        <View style={styles.shapeOne} />
+        <View style={styles.shapeTwo} />
+        <View style={styles.shapeThree} />
+      </View>
+
       <Image
         style={styles.image}
         source={require('../assets/logo.png')}
@@ -114,12 +120,47 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center', 
     padding: 20,
-    backgroundColor: '#b8b6f2', // Fondo color lila
+    backgroundColor: '#ccd6e6',   
+  },
+  backgroundShapesContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: -1,
+  },
+  shapeOne: {
+    position: 'absolute',
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    backgroundColor: '#7eb8e1',   
+    top: -50,
+    left: -50,
+  },
+  shapeTwo: {
+    position: 'absolute',
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: '#cbc892',  // Segundo color para la mancha
+    bottom: -30,
+    right: -50,
+  },
+  shapeThree: {
+    position: 'absolute',
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    backgroundColor: '#8da46d',  // Tercer color para la mancha
+    top: 100,
+    right: -70,
   },
   image: {
     width: "30%",
     height: "30%",
-    marginBottom: 10, // Espacio entre la imagen y el formulario
+    marginBottom: 10,  
   },
   title: {
     fontSize: 30,
@@ -157,16 +198,16 @@ const styles = StyleSheet.create({
   },
   roleButton: {
     padding: 10,
-    backgroundColor: '#918FCC',
+    backgroundColor: '#7eb8e1',  
     borderRadius: 19,
     marginHorizontal: 5,
   },
   selectedRole: {
-    backgroundColor: '#6A5ACD', // Color diferente para el botón seleccionado
+    backgroundColor: '#8da46d',  
   },
   loginButton: {
     padding: 10,
-    backgroundColor: '#918FCC',
+    backgroundColor: '#7eb8e1',   
     borderRadius: 19,
     marginTop: 20,
     width: '80%',

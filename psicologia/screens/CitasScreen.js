@@ -55,7 +55,7 @@ const CitasScreen = () => {
   // Formato de fecha
   const formatDate = (fecha) => {
     const date = new Date(fecha);
-    return date.toLocaleDateString(); // Solo muestra la fecha sin hora
+    return date.toLocaleDateString();  
   };
 
   return (
@@ -94,7 +94,7 @@ const CitasScreen = () => {
           <View style={styles.modalCard}>
             <Text style={styles.modalTitle}>Reagendar Cita</Text>
             <TextInput
-              placeholder="Nueva Fecha (YYYY-MM-DD)"
+              placeholder="Nueva Fecha"
               value={nuevaFecha}
               onChangeText={setNuevaFecha}
               style={styles.input}
@@ -115,7 +115,7 @@ const CitasScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#ccd6e6',
     padding: 10,
   },
   title: {
@@ -138,10 +138,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   confirmedBackground: {
-    backgroundColor: '#b8b6f2', 
+    backgroundColor: '#7eb8e1', 
   },
   pendingBackground: {
-    backgroundColor: '#FFF880', 
+    backgroundColor: '#cbc892', 
   },
   citaDate: {
     fontSize: 16,
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalCard: {
-    backgroundColor: '#fff',
+    backgroundColor: '#ccd6e6',
     width: '80%',
     padding: 20,
     borderRadius: 10, 
@@ -197,12 +197,12 @@ const styles = StyleSheet.create({
   },
   modalButton: {
     padding: 10,
-    backgroundColor: '#918FCC',
+    backgroundColor: '#7eb8e1',
     borderRadius: 19,
     marginHorizontal: 5,
   },
   cancelButton: {
-    backgroundColor: 'red',
+    backgroundColor: '7eb8e1',
   },
   buttonText: {
     color: '#fff',

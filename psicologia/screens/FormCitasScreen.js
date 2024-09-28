@@ -12,7 +12,7 @@ const FormCitasScreen = () => {
         fecha_cita: '',
         hora_cita: '',
         tipo_cita: '',
-        estado: 'no confirmado', // Predeterminado a "no confirmado"
+        estado: 'pendiente',
     });
     const [pacientes, setPacientes] = useState([]);
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
