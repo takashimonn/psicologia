@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { savePaciente, getPacientes } from '../api'; 
 
-const PacientesScreen = ({ navigation }) => {  // Recibiendo navigation como prop
+const PacientesScreen = ({ navigation }) => {
     const [nuevoPaciente, setNuevoPaciente] = useState({
         nombre: '',
         apellido: '',
@@ -23,7 +23,6 @@ const PacientesScreen = ({ navigation }) => {  // Recibiendo navigation como pro
 
     const [pacientes, setPacientes] = useState([]);
 
-    // Cargar la lista de pacientes
     useEffect(() => {
         loadPacientes();
     }, []);
@@ -42,7 +41,6 @@ const PacientesScreen = ({ navigation }) => {  // Recibiendo navigation como pro
     };
 
     const handleSubmit = async () => {
-        // Validar que todos los campos necesarios estén completos
         if (!nuevoPaciente.nombre || !nuevoPaciente.apellido || !nuevoPaciente.fecha_nacimiento || !nuevoPaciente.correo_electronico || !nuevoPaciente.telefono || !nuevoPaciente.direccion || !nuevoPaciente.id_psicologo || !nuevoPaciente.usuario || !nuevoPaciente.contrasena || !nuevoPaciente.tarifa || !nuevoPaciente.nombre_emergencia || !nuevoPaciente.contacto_emergencia || !nuevoPaciente.estado_civil || !nuevoPaciente.ocupacion) {
             Alert.alert('Error', 'Por favor completa todos los campos.');
             return;
@@ -67,10 +65,8 @@ const PacientesScreen = ({ navigation }) => {  // Recibiendo navigation como pro
                 estado_civil: '',
                 ocupacion: '',
                 fecha_registro: new Date().toISOString(),
-            }); // Resetear el formulario
+            });
 
-            Alert.alert('Paciente registrado con exito');
-            // Aquí, puedes llamar a la función para navegar atrás y recargar datos
             loadPacientes();
             goBackAndRefresh();
         } catch (error) {
@@ -80,113 +76,118 @@ const PacientesScreen = ({ navigation }) => {  // Recibiendo navigation como pro
     };
 
     const goBackAndRefresh = () => {
-        navigation.goBack(); // Regresar a la pantalla anterior
-        loadPacientes(); // Recargar la lista de pacientes en la pantalla anterior
+        navigation.goBack();
+        loadPacientes();
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.title}>Registrar Nuevo Paciente</Text>
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={100} // Ajusta este valor según sea necesario
+        >
+            <ScrollView contentContainerStyle={styles.container}>
+                <Text style={styles.title}>Registrar Nuevo Paciente</Text>
 
-            <TextInput
-                style={styles.input}
-                placeholder="Nombre"
-                value={nuevoPaciente.nombre}
-                onChangeText={(text) => handleChange('nombre', text)}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Apellido"
-                value={nuevoPaciente.apellido}
-                onChangeText={(text) => handleChange('apellido', text)}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Fecha de Nacimiento"
-                value={nuevoPaciente.fecha_nacimiento}
-                onChangeText={(text) => handleChange('fecha_nacimiento', text)}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Correo Electrónico"
-                value={nuevoPaciente.correo_electronico}
-                onChangeText={(text) => handleChange('correo_electronico', text)}
-                keyboardType="email-address"
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Teléfono"
-                value={nuevoPaciente.telefono}
-                onChangeText={(text) => handleChange('telefono', text)}
-                keyboardType="phone-pad"
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Dirección"
-                value={nuevoPaciente.direccion}
-                onChangeText={(text) => handleChange('direccion', text)}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="ID Psicólogo"
-                value={nuevoPaciente.id_psicologo}
-                onChangeText={(text) => handleChange('id_psicologo', text)}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Usuario"
-                value={nuevoPaciente.usuario}
-                onChangeText={(text) => handleChange('usuario', text)}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Contraseña"
-                value={nuevoPaciente.contrasena}
-                onChangeText={(text) => handleChange('contrasena', text)}
-                secureTextEntry
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Tarifa"
-                value={nuevoPaciente.tarifa}
-                onChangeText={(text) => handleChange('tarifa', text)}
-                keyboardType="numeric"
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Nombre Emergencia"
-                value={nuevoPaciente.nombre_emergencia}
-                onChangeText={(text) => handleChange('nombre_emergencia', text)}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Contacto Emergencia"
-                value={nuevoPaciente.contacto_emergencia}
-                onChangeText={(text) => handleChange('contacto_emergencia', text)}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Estado Civil"
-                value={nuevoPaciente.estado_civil}
-                onChangeText={(text) => handleChange('estado_civil', text)}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Ocupación"
-                value={nuevoPaciente.ocupacion}
-                onChangeText={(text) => handleChange('ocupacion', text)}
-            />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Nombre"
+                    value={nuevoPaciente.nombre}
+                    onChangeText={(text) => handleChange('nombre', text)}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Apellido"
+                    value={nuevoPaciente.apellido}
+                    onChangeText={(text) => handleChange('apellido', text)}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Fecha de Nacimiento"
+                    value={nuevoPaciente.fecha_nacimiento}
+                    onChangeText={(text) => handleChange('fecha_nacimiento', text)}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Correo Electrónico"
+                    value={nuevoPaciente.correo_electronico}
+                    onChangeText={(text) => handleChange('correo_electronico', text)}
+                    keyboardType="email-address"
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Teléfono"
+                    value={nuevoPaciente.telefono}
+                    onChangeText={(text) => handleChange('telefono', text)}
+                    keyboardType="phone-pad"
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Dirección"
+                    value={nuevoPaciente.direccion}
+                    onChangeText={(text) => handleChange('direccion', text)}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="ID Psicólogo"
+                    value={nuevoPaciente.id_psicologo}
+                    onChangeText={(text) => handleChange('id_psicologo', text)}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Usuario"
+                    value={nuevoPaciente.usuario}
+                    onChangeText={(text) => handleChange('usuario', text)}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Contraseña"
+                    value={nuevoPaciente.contrasena}
+                    onChangeText={(text) => handleChange('contrasena', text)}
+                    secureTextEntry
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Tarifa"
+                    value={nuevoPaciente.tarifa}
+                    onChangeText={(text) => handleChange('tarifa', text)}
+                    keyboardType="numeric"
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Nombre Emergencia"
+                    value={nuevoPaciente.nombre_emergencia}
+                    onChangeText={(text) => handleChange('nombre_emergencia', text)}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Contacto Emergencia"
+                    value={nuevoPaciente.contacto_emergencia}
+                    onChangeText={(text) => handleChange('contacto_emergencia', text)}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Estado Civil"
+                    value={nuevoPaciente.estado_civil}
+                    onChangeText={(text) => handleChange('estado_civil', text)}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Ocupación"
+                    value={nuevoPaciente.ocupacion}
+                    onChangeText={(text) => handleChange('ocupacion', text)}
+                />
 
-            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                <Text style={styles.buttonText}>Registrar Paciente</Text>
-            </TouchableOpacity>
-        </ScrollView>
+                <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                    <Text style={styles.buttonText}>Registrar Paciente</Text>
+                </TouchableOpacity>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         padding: 16,
         backgroundColor: '#f8f8f8',
     },
@@ -215,16 +216,6 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 18,
         fontWeight: 'bold',
-    },
-    pacientesTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginVertical: 16,
-    },
-    pacienteItem: {
-        padding: 10,
-        borderBottomWidth: 1,
-        borderColor: '#ddd',
     },
 });
 

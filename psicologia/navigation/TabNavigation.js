@@ -97,15 +97,56 @@ function TabNavigator() {
       })}
     >
       {userRole !== 'psicologo' && (
-        <Tab.Screen name="CitasPacientes" component={CitaPacienteScreen} options={{ tabBarLabel: 'Mis Citas' }} />
+        <Tab.Screen 
+          name="CitasPacientes" 
+          component={CitaPacienteScreen} 
+          options={({ navigation }) => ({
+            tabBarLabel: 'Mis Citas', 
+            title: 'Citas Programadas',
+            headerRight: () => (
+              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                <MaterialIcons name="logout" size={24} color="#8da46d" style={{ marginRight: 8 }} />
+              </TouchableOpacity>
+            ),
+          })} 
+        />
       )}
-      {userRole !== 'paciente' && (
-        <>
-          <Tab.Screen name="Citas del Día" component={CitasDiaScreen} options={{ tabBarLabel: 'Citas de Hoy' }} />
-          <Tab.Screen name="Citas" component={CitasStack} options={{ tabBarLabel: 'Citas', headerShown: false }} />
-          <Tab.Screen name="Pacientes" component={PacientesStack} options={{ tabBarLabel: 'Pacientes', headerShown: false }} />
-        </>
-      )}
+
+{userRole !== 'paciente' && (
+  <>
+    <Tab.Screen 
+      name="Citas del Día" 
+      component={CitasDiaScreen} 
+      options={({ navigation }) => ({
+        tabBarLabel: 'Citas de Hoy',
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <MaterialIcons name="logout" size={24} color="#8da46d" style={{ marginRight: 8 }} />
+          </TouchableOpacity>
+        ),
+      })}
+    />
+    
+    <Tab.Screen 
+      name="Citas" 
+      component={CitasStack} 
+      options={{
+        tabBarLabel: 'Citas', 
+        headerShown: false,  // Mantienes este valor si no quieres mostrar el header
+      }} 
+    />
+    
+    <Tab.Screen 
+      name="Pacientes" 
+      component={PacientesStack} 
+      options={{
+        tabBarLabel: 'Pacientes', 
+        headerShown: false,  // Mantienes este valor si no quieres mostrar el header
+      }} 
+    />
+  </>
+)}
+
     </Tab.Navigator>
   );
 }

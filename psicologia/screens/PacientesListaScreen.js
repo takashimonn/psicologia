@@ -91,7 +91,7 @@ const PacientesTablaScreen = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handlePacientePress(item)} style={styles.tableRow}>
-            <Text style={styles.cell}>{item.nombre} {item.apellido}</Text>
+            <Text style={styles.cell}>{item.nombre}</Text>
             <Text style={styles.cell}>{item.telefono}</Text>
             <Text style={styles.cell}>{item.tarifa}</Text>
           </TouchableOpacity>

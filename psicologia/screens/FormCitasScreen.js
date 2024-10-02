@@ -1,11 +1,14 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert, Picker } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import React, { useState, useEffect } from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import { saveCita, getPacientes } from '../api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native'; // Importa useNavigation
 
 const FormCitasScreen = () => {
+    const navigation = useNavigation(); // Crea la instancia de navigation
     const [cita, setCita] = useState({
         id_psicologo: '',
         id_paciente: '',
@@ -60,7 +63,9 @@ const FormCitasScreen = () => {
 
         saveCita(cita)
             .then(() => {
-                Alert.alert('Cita registrada con éxito');
+                Alert.alert('Cita registrada con éxito', '', [
+                    { text: 'OK', onPress: () => navigation.navigate('Citas') } // Redirige a la pantalla de citas
+                ]);
                 // Reinicia el formulario después de registrar con éxito
                 setCita({
                     id_psicologo: cita.id_psicologo,

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView, Text, Modal, TextInput, Alert, TouchableOpacity } from 'react-native';
 import { getCitas, cancelCita, reagendarCita } from '../api';
 import { MaterialIcons } from '@expo/vector-icons'; // Asegúrate de tener instalado @expo/vector-icons
+import { useFocusEffect } from '@react-navigation/native'; // Importa useFocusEffect
 
 const CitasScreen = () => {
   const [citas, setCitas] = useState([]);
@@ -28,7 +29,7 @@ const CitasScreen = () => {
           text: "Sí",
           onPress: async () => {
             await cancelCita(idCita);
-            loadCitas();
+            loadCitas(); // Refresca citas después de cancelar
           }
         }
       ]
@@ -38,15 +39,17 @@ const CitasScreen = () => {
   const handleReagendarCita = async () => {
     if (citaSeleccionada && nuevaFecha) {
       await reagendarCita(citaSeleccionada, nuevaFecha);
-      loadCitas();
+      loadCitas(); // Refresca citas después de reagendar
       setModalVisible(false);
       setNuevaFecha('');
     }
   };
 
-  useEffect(() => {
-    loadCitas();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      loadCitas(); // Carga citas al enfocar la pantalla
+    }, [])
+  );
 
   const getBackgroundColor = (estado) => {
     return estado === 'confirmada' ? styles.confirmedBackground : styles.pendingBackground;
