@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image } from 'expo-image';
-import { login } from '../api';  
+import { login } from '../api';  // Usamos la función login ya creada en api.js
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -16,42 +16,26 @@ const LoginScreen = () => {
       Alert.alert('Error', 'Por favor, ingresa usuario y contraseña.');
       return;
     }
-  
+
     if (!rol) {
       Alert.alert('Error', 'Por favor, selecciona el rol.');
       return;
     }
-  
+
     try {
-      const response = await fetch('http://192.168.1.74:3000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ usuario, contrasena, rol }),
-      });
-  
-      if (!response.ok) {
-        const errorData = await response.json();
-        Alert.alert('Error', errorData.message || 'Usuario y/o contraseña incorrectos.');
-        return;
-      }
-  
-      const data = await response.json();
-      
-      console.log('Datos recibidos:', data); // Verifica los datos que se están recibiendo
-  
+      const data = await login(usuario, contrasena, rol); // Reutilizamos la función login
+
       if (data.exists && data.user) {
         const { rol, id_paciente, id_psicologo } = data.user;
-  
+
         await AsyncStorage.setItem('userRole', rol.toString());
-        
+
         if (rol === 'paciente' && id_paciente) {
           await AsyncStorage.setItem('userId', id_paciente.toString());
         } else if (rol === 'psicologo' && id_psicologo) {
           await AsyncStorage.setItem('userId', id_psicologo.toString());
         }
-  
+
         navigation.navigate('Tabs');
         setUsuario('');
         setContrasena('');
@@ -144,7 +128,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     borderRadius: 75,
-    backgroundColor: '#cbc892',  // Segundo color para la mancha
+    backgroundColor: '#cbc892',  
     bottom: -30,
     right: -50,
   },
@@ -153,7 +137,7 @@ const styles = StyleSheet.create({
     width: 180,
     height: 180,
     borderRadius: 90,
-    backgroundColor: '#8da46d',  // Tercer color para la mancha
+    backgroundColor: '#8da46d',  
     top: 100,
     right: -70,
   },

@@ -1,4 +1,4 @@
-const API_BASE = 'http://192.168.1.74:3000';
+const API_BASE = 'http://192.168.1.11:3000';
 
 // Ajusta las rutas según la estructura de tu backend
 export const getCitas = async () => {
@@ -125,3 +125,27 @@ export const login = async (usuario, contrasena, rol) => {
       throw error; // Lanza el error para manejarlo en la pantalla
     }
   };
+  
+  export const savePaciente = async (newPaciente) => {
+    try {
+        const res = await fetch(`${API_BASE}/pacientes`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newPaciente),
+        });
+
+        if (!res.ok) {
+            const errorText = await res.text();
+            console.error(`Error en la respuesta del servidor: ${errorText}`);
+            throw new Error(`Error en la creación del paciente: ${errorText}`);
+        }
+
+        return await res.json();
+    } catch (error) {
+        console.error('Error al guardar el paciente:', error);
+        throw error;
+    }
+};

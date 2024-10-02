@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { View, ActivityIndicator, StyleSheet, Text, FlatList, TouchableOpacity, Modal, Button, TextInput, Alert } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native'; // Importa useFocusEffect
 import { getPacientes, getDiagnosticosByPaciente, saveDiagnostico } from '../api'; // Importa la API correctamente
 
 const PacientesTablaScreen = () => {
@@ -11,17 +12,21 @@ const PacientesTablaScreen = () => {
   const [loadingDiagnosticos, setLoadingDiagnosticos] = useState(false);
   const [nuevoDiagnostico, setNuevoDiagnostico] = useState(''); // Estado para el nuevo diagnóstico
 
-  useEffect(() => {
-    const loadPatients = async () => {
-      try {
-        const data = await getPacientes();
-        setPacientes(data);
-      } catch (error) {
-        console.error('Error al cargar pacientes:', error);
-      }
-    };
-    loadPatients();
-  }, []);
+  const loadPatients = async () => {
+    try {
+      const data = await getPacientes();
+      setPacientes(data);
+    } catch (error) {
+      console.error('Error al cargar pacientes:', error);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      // Se ejecuta cada vez que la pantalla se enfoca
+      loadPatients();
+    }, [])
+  );
 
   const handlePacientePress = async (paciente) => {
     setSelectedPaciente(paciente);
